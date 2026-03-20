@@ -20,11 +20,16 @@ body{padding:24px;font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe 
 .ltag.llm{color:#7a0dc8}
 .lprod{font-size:15px;font-weight:600;color:#212327;margin-bottom:4px}
 .lrsn{font-size:12px;color:#636A77;line-height:1.5}
-.tag-row{margin-bottom:14px}
-.atag{font-size:11px;font-weight:600;padding:2px 10px;border-radius:8px;display:inline-flex;align-items:center;height:24px}
+.adjudication{background:#F7F8FB;border-radius:10px;padding:16px;border:1px solid #f0f0f0}
+.adj-hdr{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.adj-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#878F9E}
+.atag{font-size:11px;font-weight:600;padding:2px 10px;border-radius:8px;display:inline-flex;align-items:center;height:22px}
 .atag.agree{background:#e7f7f1;color:#0a6a47}
 .atag.refined{background:#fef2db;color:#654c1e}
-.rationale{font-size:13px;color:#212327;background:#F7F8FB;border-radius:10px;padding:14px 16px;border:1px solid #f0f0f0;line-height:1.6}
+.adj-grid{display:grid;grid-template-columns:auto 1fr;row-gap:8px;column-gap:10px;font-size:13px}
+.adj-label{color:#878F9E;font-weight:500;font-size:12px;white-space:nowrap;padding-top:1px}
+.adj-value{color:#212327;font-weight:400;line-height:1.5}
+.adj-value.em{font-weight:600;color:#020713}
 </style></head>
 <body><div class="card">
   <div class="hdr">
@@ -42,14 +47,28 @@ body{padding:24px;font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe 
         <div class="lrsn">{{ML_REASON}}</div>
       </div>
       <div class="lbox llm">
-        <span class="ltag llm">LLM Analysis</span>
+        <span class="ltag llm">LLM Real-Time Analysis</span>
         <div class="lprod">{{LLM_PRODUCT}}</div>
         <div class="lrsn">{{LLM_REASON}}</div>
       </div>
     </div>
-    <div class="tag-row">
-      <span class="atag {{AGREEMENT_CLASS}}">{{AGREEMENT_LABEL}}</span>
+    <div class="adjudication">
+      <div class="adj-hdr">
+        <span class="adj-title">Adjudication</span>
+        <span class="atag {{AGREEMENT_CLASS}}">{{AGREEMENT_LABEL}}</span>
+      </div>
+      <div class="adj-grid">
+        <span class="adj-label">Conflict</span>
+        <span class="adj-value">{{ADJ_CONFLICT}}</span>
+        <span class="adj-label">ML basis</span>
+        <span class="adj-value">{{ADJ_ML_BASIS}}</span>
+        <span class="adj-label">LLM basis</span>
+        <span class="adj-value">{{ADJ_LLM_BASIS}}</span>
+        <span class="adj-label">Decision</span>
+        <span class="adj-value em">{{ADJ_DECISION}}</span>
+        <span class="adj-label">Rationale</span>
+        <span class="adj-value">{{ADJ_RATIONALE}}</span>
+      </div>
     </div>
-    <div class="rationale">{{LLM_DECISIONING_RATIONALE}}</div>
   </div>
 </div></body></html>

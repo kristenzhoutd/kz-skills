@@ -69,17 +69,29 @@ For `{{PRODUCT_PILLS}}`, generate this HTML based on the Y/N product columns:
 Repeat for: Checking, Savings, Credit Card, Insurance, Loan.
 
 **Step 3 — `step-3-decide.html`** (card title: AI Decisioning)
+
+The card has 3 layers: ML Model, LLM Real-Time Analysis, and Adjudication.
+
+**Layer 1 & 2 placeholders:**
 | Placeholder | Value |
 |---|---|
 | `{{ML_PRODUCT}}` | ML model's recommendation (from `next_best_product` column) or "No ML Score" if NULL |
-| `{{ML_REASON}}` | Short reason for ML pick (e.g., "Propensity model: 0.82 refinance score") |
-| `{{LLM_PRODUCT}}` | LLM's independent recommendation based on conversation signals |
-| `{{LLM_REASON}}` | Short reason for LLM pick (e.g., "Rate frustration + income increase = refinance urgency") |
+| `{{ML_REASON}}` | Short reason for ML pick (e.g., "Propensity model scored highest for Savings based on batch profile — checking customer without savings account, Grade C balance group") |
+| `{{LLM_PRODUCT}}` | LLM's independent recommendation based on real-time conversation signals |
+| `{{LLM_REASON}}` | Short reason for LLM pick (e.g., "Explicit rate frustration (7.2% vs 5.4% competitor), income increase + credit improvement = refinance eligibility signal, active churn threat") |
+
+**Layer 3 — Adjudication placeholders:**
+| Placeholder | Value |
+|---|---|
 | `{{AGREEMENT_CLASS}}` | "agree" if ML and LLM agree, "refined" if real-time context refines the ML recommendation |
 | `{{AGREEMENT_LABEL}}` | "ML + REAL-TIME ALIGNED" or "REAL-TIME INSIGHT" or "REAL-TIME DECISIONING" (when ML is NULL) |
-| `{{LLM_DECISIONING_RATIONALE}}` | 2-3 sentence LLM explanation referencing both ML input and conversation signals |
+| `{{ADJ_CONFLICT}}` | One-line conflict summary (e.g., "ML recommends Savings Account; LLM recommends Mortgage Refinance"). If aligned: "Both recommend [product]" |
+| `{{ADJ_ML_BASIS}}` | Why ML chose its product — one concise line (e.g., "Batch profile indicates strong savings cross-sell propensity") |
+| `{{ADJ_LLM_BASIS}}` | Why LLM chose its product — one concise line (e.g., "Live conversation shows immediate churn risk and refinance intent") |
+| `{{ADJ_DECISION}}` | Final product decision — bold (e.g., "Mortgage Refinance") |
+| `{{ADJ_RATIONALE}}` | One-line decision rationale (e.g., "Higher urgency, retention-critical need, and newer signals not captured in batch model") |
 
-Note: Step 3 shows only the ML vs LLM analysis comparison and rationale. The recommendation card, decision signals, offer details, and CTA are removed from this card — the final offer, headline, and CTA are determined here but rendered only in chat text and used in Step 4's email activation.
+Note: Step 3 shows only the 3-layer analysis. The final offer headline, CTA, and offer details are determined here but rendered only in chat text and used in Step 4's email activation.
 
 **Step 4 — `step-4-act.html`** (card title: Activation)
 | Placeholder | Value |
@@ -173,7 +185,7 @@ Read the `next_best_product` attribute from the CDP profile queried in Step 2. M
 
 If `next_best_product` is NULL, record ML_PRODUCT as "No ML Score" and ML_REASON as "No propensity model output available for this customer".
 
-#### Layer 2: LLM Conversation Analysis
+#### Layer 2: LLM Real-Time Analysis
 
 Go back to the original transcript/call summary from Step 1 and extract **intent signals** that a batch ML model cannot capture. Analyze for:
 
@@ -217,11 +229,18 @@ Now reason over BOTH layers to produce the final offer. Apply this logic:
 - AGREEMENT_CLASS = "refined", AGREEMENT_LABEL = "REAL-TIME DECISIONING"
 - OFFER_SOURCE = "Real-Time Decisioning (no ML score)"
 
-**Generate LLM_DECISIONING_RATIONALE** — Write 2-3 sentences explaining the final decision. This should read like an analyst's note: reference the ML input, the conversation signals, and why the final choice was made. Example: "The ML model recommended Premium Membership based on high account balance and credit score. Real-time conversation context revealed active rate frustration and a recent income increase — making Mortgage Refinance the more timely and relevant offer. The conversation signals add urgency to the customer's needs, refining the recommendation toward refinance with higher conversion probability."
+**Generate adjudication fields** — Write concise, scannable content for the 5 adjudication fields:
+- `ADJ_CONFLICT`: One line stating what ML and LLM each recommend (e.g., "ML recommends Savings Account; LLM recommends Mortgage Refinance"). If they agree: "Both recommend [product]"
+- `ADJ_ML_BASIS`: One concise line explaining ML's reasoning (e.g., "Batch profile indicates strong savings cross-sell propensity")
+- `ADJ_LLM_BASIS`: One concise line explaining LLM's reasoning (e.g., "Live conversation shows immediate churn risk and refinance intent")
+- `ADJ_DECISION`: The final product name only (e.g., "Mortgage Refinance")
+- `ADJ_RATIONALE`: One concise line explaining why (e.g., "Higher urgency, retention-critical need, and newer signals not captured in batch model")
 
-**Generate offer_details** — Write 2-3 personalized sentences referencing the customer's actual profile data (grade, credit score, tenure, products held). Make it sound like a private banker writing to a valued client.
+Keep each field to one line. Do NOT write multi-sentence paragraphs. The adjudication section should be scannable at a glance.
 
-**After deciding, render the step 3 card:** Read the template `{SKILL_DIR}/templates/step-3-decide.html`, substitute all `{{PLACEHOLDER}}` markers with the ML/LLM analysis and rationale data, write to `/tmp/convai-step-3.html`, then preview with `mcp__tdx-studio__preview_document` (path: `/tmp/convai-step-3.html`, title: `Step 3: AI Decisioning`).
+**Generate offer_details** — Write 2-3 personalized sentences referencing the customer's actual profile data (grade, credit score, tenure, products held). Make it sound like a private banker writing to a valued client. This is used in the email (Step 4), not rendered in the Step 3 card.
+
+**After deciding, render the step 3 card:** Read the template `{SKILL_DIR}/templates/step-3-decide.html`, substitute all `{{PLACEHOLDER}}` markers with the analysis and adjudication data, write to `/tmp/convai-step-3.html`, then preview with `mcp__tdx-studio__preview_document` (path: `/tmp/convai-step-3.html`, title: `Step 3: AI Decisioning`).
 
 **In chat text after the card**, state the final recommendation (offer type, headline, CTA) and the offer details so the presenter can see the full decision output before proceeding to activation.
 
