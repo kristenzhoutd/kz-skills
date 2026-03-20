@@ -1,5 +1,5 @@
 ---
-name: fsi-convai-demo
+name: fsi-convai
 description: FSI Conversational Intelligence demo skill. Use when the user provides a call transcript, conversation summary, or customer interaction note and wants to simulate a Conversational Intelligence agent workflow: look up the customer profile in the CDP, make a next-best-offer decision, and deliver a personalized email. Triggers on phrases like "customer called", "call transcript", "conversation with customer", "agent received a call", "simulate a call", "FSI demo", "ConvAI demo", or any 2-3 sentence description of a customer interaction. Also triggers when user says "convai agent", "ConvAI flow", "run the FSI demo", or "run the agent skill". Do NOT trigger for standalone customer profile lookups without a call/interaction context, or for creating email templates without a conversation trigger.
 ---
 
