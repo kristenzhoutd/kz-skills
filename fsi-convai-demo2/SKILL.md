@@ -13,6 +13,14 @@ You are a Conversational Intelligence Agent integrated with the Treasure Data CD
 3. Execute Step 3 (AI Decisioning) → Render Step 3 card → STOP and let user see it
 4. Execute Step 4 (Activation) → Render Step 4 card → Render email preview
 
+**CRITICAL — NO DUPLICATE CHAT OUTPUT:** Do NOT echo extracted fields, profile data, decisioning details, or recommendation content in the chat text. All of that information is rendered in the HTML cards. Chat text should be minimal — only brief transition phrases to move between steps. Examples of what to say in chat:
+- Step 1: "Parsing the call transcript for [Name]..." then render card. Do NOT list extracted fields in chat.
+- Step 2: "Looking up [Name] in the CDP..." then render card. Do NOT list profile fields in chat.
+- Step 3: "Running dual-layer decisioning..." then render card. Do NOT list ML/LLM products, adjudication details, or final recommendation in chat.
+- Step 4: "Sending the personalized email..." then render card. Do NOT list delivery details in chat.
+
+The cards ARE the output. Chat text is only for brief status transitions between cards.
+
 ## Visual Card Rendering
 
 **Approach: Use the fixed HTML templates in the `templates/` directory alongside this skill.** Each template has `{{PLACEHOLDER}}` markers. Read the template, substitute all placeholders with actual data using Python, write the result to `/tmp/convai-step-{N}.html`, then preview with `mcp__tdx-studio__preview_document`.
@@ -129,6 +137,8 @@ If the transcript doesn't contain a recognizable customer name, ask the user for
 
 **After extracting, render the step 1 card:** Read the template `{SKILL_DIR}/templates/step-1-extract.html`, substitute all `{{PLACEHOLDER}}` markers with the extracted data, write the result to `/tmp/convai-step-1.html`, then preview with `mcp__tdx-studio__preview_document` (path: `/tmp/convai-step-1.html`, title: `Step 1: Conversational Intelligence`).
 
+**Chat output:** Only write a brief transition like "Parsing the call transcript for [Name]..." before rendering. Do NOT list the extracted fields (Name, Phone, Account, Intent, Signals) in chat — they are shown in the card.
+
 ### Step 2: PROFILE LOOKUP & ENRICHMENT — Query the CDP Profile
 
 Query the customer profile from the CDP database using `tdx query -d cdp_audience_255132 "SELECT ..."`. Note: `tdx query` does NOT support `-w`/`--wait` or `-o`/`--output` flags — it streams results directly in table format. Use this exact query pattern:
@@ -169,6 +179,8 @@ LIMIT 1
 If no profile is found, say so clearly and stop — do not fabricate data.
 
 **After lookup, render the step 2 card:** Read the template `{SKILL_DIR}/templates/step-2-lookup.html`, substitute all `{{PLACEHOLDER}}` markers with the CDP profile data, write to `/tmp/convai-step-2.html`, then preview with `mcp__tdx-studio__preview_document` (path: `/tmp/convai-step-2.html`, title: `Step 2: Profile Lookup & Enrichment`).
+
+**Chat output:** Only write a brief transition like "Looking up [Name] in the CDP..." before rendering. Do NOT list profile fields in chat — they are shown in the card.
 
 ### Step 3: AI DECISIONING — Dual-Layer Decisioning (ML + LLM)
 
@@ -255,6 +267,8 @@ Keep each field to one line. Do NOT write multi-sentence paragraphs. The adjudic
 The same offer data (offer_type, offer_headline, offer_details, cta_text) is also used for the email in Step 4. Use `REC_OFFER_TYPE` as the `offer_type`, `REC_HEADLINE` as the `offer_headline`, `REC_CTA` as the `cta_text`, and `REC_DETAILS` as the `offer_details` when pre-rendering the email template.
 
 **After deciding, render the step 3 card:** Read the template `{SKILL_DIR}/templates/step-3-decide.html`, substitute all `{{PLACEHOLDER}}` markers with the analysis, adjudication, and recommendation data, write to `/tmp/convai-step-3.html`, then preview with `mcp__tdx-studio__preview_document` (path: `/tmp/convai-step-3.html`, title: `Step 3: AI Decisioning`).
+
+**Chat output:** Only write a brief transition like "Running dual-layer decisioning..." before rendering. Do NOT list ML/LLM products, adjudication details, layer breakdowns, or the final recommendation in chat — all of that is shown in the card.
 
 ### Step 4: ACTIVATION — Send the Email
 
