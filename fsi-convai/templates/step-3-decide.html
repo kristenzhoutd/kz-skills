@@ -10,33 +10,36 @@ body{padding:24px;font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe 
 .title{font-size:14px;font-weight:600;color:#212327}
 .step{font-size:10px;font-weight:500;color:#878F9E;letter-spacing:.5px}
 .body{padding:20px}
-.layers{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
-.lbox{border-radius:10px;padding:14px;border:1px solid #f0f0f0;background:#fff;position:relative;overflow:hidden}
+.layers{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.lbox{border-radius:10px;padding:12px;border:1px solid #f0f0f0;background:#fff;position:relative;overflow:hidden}
 .lbox::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
 .lbox.ml::before{background:#3B6FD4}
 .lbox.llm::before{background:#7a0dc8}
-.ltag{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:block}
+.ltag{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;display:block}
 .ltag.ml{color:#3B6FD4}
 .ltag.llm{color:#7a0dc8}
-.lprod{font-size:15px;font-weight:600;color:#212327;margin-bottom:4px}
-.lrsn{font-size:12px;color:#636A77;line-height:1.5}
-.adjudication{background:#F7F8FB;border-radius:10px;padding:16px;border:1px solid #f0f0f0;margin-bottom:16px}
-.adj-hdr{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.lprod{font-size:14px;font-weight:600;color:#212327;margin-bottom:2px}
+.lrsn{font-size:11px;color:#636A77;line-height:1.4}
+.adj{background:#F7F8FB;border-radius:10px;padding:12px 14px;border:1px solid #f0f0f0;margin-bottom:14px}
+.adj-hdr{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .adj-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#878F9E}
 .atag{font-size:11px;font-weight:600;padding:2px 10px;border-radius:8px;display:inline-flex;align-items:center;height:22px}
 .atag.agree{background:#e7f7f1;color:#0a6a47}
 .atag.refined{background:#fef2db;color:#654c1e}
-.adj-grid{display:grid;grid-template-columns:auto 1fr;row-gap:8px;column-gap:10px;font-size:13px}
-.adj-label{color:#878F9E;font-weight:500;font-size:12px;white-space:nowrap;padding-top:1px}
-.adj-value{color:#212327;font-weight:400;line-height:1.5}
-.adj-value.em{font-weight:600;color:#020713}
+.adj-rows{font-size:12px;color:#212327;line-height:1.6}
+.adj-row{display:flex;gap:6px;margin-bottom:2px}
+.adj-row:last-child{margin-bottom:0}
+.adj-dot{color:#878F9E;flex-shrink:0}
+.adj-row b{font-weight:600;color:#020713}
 .rec{border-radius:10px;border:1px solid #f0f0f0;overflow:hidden}
-.rec-top{background:#020713;padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
-.rec-offer{font-size:13px;font-weight:600;color:#fff}
-.rec-cta{font-size:12px;font-weight:500;color:#fff;background:rgba(255,255,255,.15);padding:4px 12px;border-radius:6px;text-decoration:none;display:inline-block}
-.rec-body{padding:14px 16px}
-.rec-hl{font-size:14px;font-weight:600;color:#212327;margin-bottom:6px}
-.rec-details{font-size:13px;color:#636A77;line-height:1.6}
+.rec-bar{background:#020713;padding:10px 14px;display:flex;align-items:center;justify-content:space-between}
+.rec-offer{font-size:12px;font-weight:600;color:#fff}
+.rec-cta{font-size:11px;font-weight:500;color:#fff;background:rgba(255,255,255,.15);padding:3px 10px;border-radius:6px;text-decoration:none}
+.rec-body{padding:12px 14px}
+.rec-grid{display:grid;grid-template-columns:auto 1fr;row-gap:4px;column-gap:10px;font-size:12px}
+.rec-label{color:#878F9E;font-weight:500}
+.rec-val{color:#212327;font-weight:400}
+.rec-val.em{font-weight:600;color:#020713}
 </style></head>
 <body><div class="card">
   <div class="hdr">
@@ -54,37 +57,38 @@ body{padding:24px;font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe 
         <div class="lrsn">{{ML_REASON}}</div>
       </div>
       <div class="lbox llm">
-        <span class="ltag llm">LLM Real-Time Analysis</span>
+        <span class="ltag llm">LLM Real-Time</span>
         <div class="lprod">{{LLM_PRODUCT}}</div>
         <div class="lrsn">{{LLM_REASON}}</div>
       </div>
     </div>
-    <div class="adjudication">
+    <div class="adj">
       <div class="adj-hdr">
         <span class="adj-title">Adjudication</span>
         <span class="atag {{AGREEMENT_CLASS}}">{{AGREEMENT_LABEL}}</span>
       </div>
-      <div class="adj-grid">
-        <span class="adj-label">Conflict</span>
-        <span class="adj-value">{{ADJ_CONFLICT}}</span>
-        <span class="adj-label">ML basis</span>
-        <span class="adj-value">{{ADJ_ML_BASIS}}</span>
-        <span class="adj-label">LLM basis</span>
-        <span class="adj-value">{{ADJ_LLM_BASIS}}</span>
-        <span class="adj-label">Decision</span>
-        <span class="adj-value em">{{ADJ_DECISION}}</span>
-        <span class="adj-label">Rationale</span>
-        <span class="adj-value">{{ADJ_RATIONALE}}</span>
+      <div class="adj-rows">
+        <div class="adj-row"><span class="adj-dot">·</span> {{ADJ_CONFLICT}}</div>
+        <div class="adj-row"><span class="adj-dot">·</span> {{ADJ_ML_VIEW}}</div>
+        <div class="adj-row"><span class="adj-dot">·</span> {{ADJ_LLM_VIEW}}</div>
+        <div class="adj-row"><span class="adj-dot">·</span> Final: <b>{{ADJ_DECISION}}</b></div>
+        <div class="adj-row"><span class="adj-dot">·</span> {{ADJ_WHY}}</div>
       </div>
     </div>
     <div class="rec">
-      <div class="rec-top">
-        <span class="rec-offer">{{REC_OFFER_TYPE}}</span>
+      <div class="rec-bar">
+        <span class="rec-offer">{{REC_HEADLINE}}</span>
         <a class="rec-cta" href="#">{{REC_CTA}}</a>
       </div>
       <div class="rec-body">
-        <div class="rec-hl">{{REC_HEADLINE}}</div>
-        <div class="rec-details">{{REC_DETAILS}}</div>
+        <div class="rec-grid">
+          <span class="rec-label">Channel</span>
+          <span class="rec-val">{{REC_CHANNEL}}</span>
+          <span class="rec-label">Timing</span>
+          <span class="rec-val">{{REC_TIMING}}</span>
+          <span class="rec-label">Highlight</span>
+          <span class="rec-val em">{{REC_HIGHLIGHT}}</span>
+        </div>
       </div>
     </div>
   </div>

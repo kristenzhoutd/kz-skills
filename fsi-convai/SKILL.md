@@ -84,30 +84,31 @@ The card has 4 layers: ML Model, LLM Real-Time Analysis, Adjudication, and Final
 | Placeholder | Value |
 |---|---|
 | `{{ML_PRODUCT}}` | ML model's recommendation (from `next_best_product` column) or "No ML Score" if NULL |
-| `{{ML_REASON}}` | Short reason for ML pick (e.g., "Propensity model scored highest for Savings based on batch profile — checking customer without savings account, Grade C balance group") |
+| `{{ML_REASON}}` | Very short reason — one line max (e.g., "High propensity based on batch profile") |
 | `{{LLM_PRODUCT}}` | LLM's independent recommendation based on real-time conversation signals |
-| `{{LLM_REASON}}` | Short reason for LLM pick (e.g., "Explicit rate frustration (7.2% vs 5.4% competitor), income increase + credit improvement = refinance eligibility signal, active churn threat") |
+| `{{LLM_REASON}}` | Short bullet-style reason — key signals only (e.g., "Rate frustration · competitor offer · income improved · churn risk") |
 
 **Layer 3 — Adjudication placeholders:**
 | Placeholder | Value |
 |---|---|
 | `{{AGREEMENT_CLASS}}` | "agree" if ML and LLM agree, "refined" if real-time context refines the ML recommendation |
 | `{{AGREEMENT_LABEL}}` | "ML + REAL-TIME ALIGNED" or "REAL-TIME INSIGHT" or "REAL-TIME DECISIONING" (when ML is NULL) |
-| `{{ADJ_CONFLICT}}` | One-line conflict summary (e.g., "ML recommends Savings Account; LLM recommends Mortgage Refinance"). If aligned: "Both recommend [product]" |
-| `{{ADJ_ML_BASIS}}` | Why ML chose its product — one concise line (e.g., "Batch profile indicates strong savings cross-sell propensity") |
-| `{{ADJ_LLM_BASIS}}` | Why LLM chose its product — one concise line (e.g., "Live conversation shows immediate churn risk and refinance intent") |
-| `{{ADJ_DECISION}}` | Final product decision — bold (e.g., "Mortgage Refinance") |
-| `{{ADJ_RATIONALE}}` | One-line decision rationale (e.g., "Higher urgency, retention-critical need, and newer signals not captured in batch model") |
+| `{{ADJ_CONFLICT}}` | Short conflict line (e.g., "ML and LLM disagree"). If aligned: "Both models agree" |
+| `{{ADJ_ML_VIEW}}` | ML's position in a few words (e.g., "ML: Savings cross-sell") |
+| `{{ADJ_LLM_VIEW}}` | LLM's position in a few words (e.g., "LLM: Refinance need is higher urgency") |
+| `{{ADJ_DECISION}}` | Final product name only (e.g., "Mortgage Refinance") |
+| `{{ADJ_WHY}}` | One short line explaining why (e.g., "Real-time retention signal overrides batch propensity") |
 
-**Layer 4 — Final Recommendation placeholders:**
+**Layer 4 — Recommended Next Step placeholders:**
 | Placeholder | Value |
 |---|---|
-| `{{REC_OFFER_TYPE}}` | Final offer type name — user-friendly (e.g., "Mortgage Refinance") |
-| `{{REC_HEADLINE}}` | Customer-friendly headline — warm and clear, not salesy (e.g., "You May Qualify for a Lower Mortgage Rate") |
-| `{{REC_CTA}}` | Short action label (e.g., "Explore Refinance Options") |
-| `{{REC_DETAILS}}` | 1-2 concise sentences — warm, customer-oriented, easy to scan. Reference the customer's situation without being verbose. (e.g., "Your recent income and credit improvements may make you eligible for a better rate. Let's review your refinance options and help you secure a more competitive offer.") |
+| `{{REC_HEADLINE}}` | Short customer-friendly headline (e.g., "You may qualify for a lower mortgage rate") |
+| `{{REC_CTA}}` | Short action label (e.g., "Start your refinance") |
+| `{{REC_CHANNEL}}` | Delivery channel — typically "Email" |
+| `{{REC_TIMING}}` | Timing — typically "Immediate auto-trigger" |
+| `{{REC_HIGHLIGHT}}` | One-line offer highlight (e.g., "Mortgage refinance offer") |
 
-Note: Layer 4 translates the adjudicated decision into a polished, customer-ready recommendation. Keep the tone warm, clear, and action-oriented — not overly scripted or sales-heavy. The same offer data is also used in Step 4's email activation.
+Note: Layer 4 shows the recommended action path — channel, timing, and the offer highlight. Keep it compact and demo-friendly. The headline and CTA are also used for Step 4's email activation.
 
 **Step 4 — `step-4-act.html`** (card title: Activation)
 | Placeholder | Value |
@@ -203,7 +204,9 @@ Read the `next_best_product` attribute from the CDP profile queried in Step 2. M
 | College Fund | Education Savings Plan | Invest in Their Future Today | Start a College Fund |
 | Safe Deposit Box | Secure Storage | Protect What Matters Most | Reserve Your Box |
 
-If `next_best_product` is NULL, record ML_PRODUCT as "No ML Score" and ML_REASON as "No propensity model output available for this customer".
+If `next_best_product` is NULL, record ML_PRODUCT as "No ML Score" and ML_REASON as "No batch score available".
+
+**Keep ML_REASON very short** — one line, no full sentences needed (e.g., "High propensity based on batch profile").
 
 #### Layer 2: LLM Real-Time Analysis
 
@@ -217,7 +220,7 @@ Go back to the original transcript/call summary from Step 1 and extract **intent
 
 Based on these signals, independently recommend a product from the same offer mapping table above. Record:
 - `LLM_PRODUCT`: The LLM's recommended product
-- `LLM_REASON`: A concise explanation referencing the specific conversation signals (e.g., "Rate frustration + income increase = refinance urgency")
+- `LLM_REASON`: Short bullet-style key signals separated by " · " (e.g., "Rate frustration · competitor offer · income improved · churn risk"). Keep it compact — no full sentences.
 
 #### Layer 3: LLM Adjudication — Final Recommendation
 
@@ -249,22 +252,23 @@ Now reason over BOTH layers to produce the final offer. Apply this logic:
 - AGREEMENT_CLASS = "refined", AGREEMENT_LABEL = "REAL-TIME DECISIONING"
 - OFFER_SOURCE = "Real-Time Decisioning (no ML score)"
 
-**Generate adjudication fields** — Write concise, scannable content for the 5 adjudication fields:
-- `ADJ_CONFLICT`: One line stating what ML and LLM each recommend (e.g., "ML recommends Savings Account; LLM recommends Mortgage Refinance"). If they agree: "Both recommend [product]"
-- `ADJ_ML_BASIS`: One concise line explaining ML's reasoning (e.g., "Batch profile indicates strong savings cross-sell propensity")
-- `ADJ_LLM_BASIS`: One concise line explaining LLM's reasoning (e.g., "Live conversation shows immediate churn risk and refinance intent")
-- `ADJ_DECISION`: The final product name only (e.g., "Mortgage Refinance")
-- `ADJ_RATIONALE`: One concise line explaining why (e.g., "Higher urgency, retention-critical need, and newer signals not captured in batch model")
+**Generate adjudication bullets** — Write ultra-concise bullet content:
+- `ADJ_CONFLICT`: Short conflict statement (e.g., "ML and LLM disagree"). If aligned: "Both models agree"
+- `ADJ_ML_VIEW`: ML's position, prefixed with "ML:" (e.g., "ML: Savings cross-sell")
+- `ADJ_LLM_VIEW`: LLM's position, prefixed with "LLM:" (e.g., "LLM: Refinance need is higher urgency")
+- `ADJ_DECISION`: Final product name only (e.g., "Mortgage Refinance")
+- `ADJ_WHY`: One short phrase explaining why (e.g., "Real-time retention signal overrides batch propensity")
 
-Keep each field to one line. Do NOT write multi-sentence paragraphs. The adjudication section should be scannable at a glance.
+Keep each bullet to a short fragment — NOT a full sentence. The adjudication section should be scannable at a glance.
 
-**Generate final recommendation fields** — Write customer-friendly content for Layer 4:
-- `REC_OFFER_TYPE`: The final offer type from the adjudicated decision (e.g., "Mortgage Refinance")
-- `REC_HEADLINE`: Rewrite the offer headline to be warm, clear, and customer-oriented — not a backend label or overly salesy tagline. (e.g., "You May Qualify for a Lower Mortgage Rate" instead of "Save on Your Mortgage — Lower Rate Available")
-- `REC_CTA`: Short, clear action label (e.g., "Explore Refinance Options" or "Start Your Refinance")
-- `REC_DETAILS`: 1-2 concise sentences referencing the customer's situation. Keep it warm and natural — like a trusted advisor, not a marketing script. Avoid repeating profile data verbatim. (e.g., "Your recent income and credit improvements may make you eligible for a better rate. Let's review your refinance options and help you secure a more competitive offer.")
+**Generate recommended next step fields:**
+- `REC_HEADLINE`: Short customer-friendly headline (e.g., "You may qualify for a lower mortgage rate")
+- `REC_CTA`: Short action label (e.g., "Start your refinance")
+- `REC_CHANNEL`: The delivery channel — use `next_best_channel` from CDP if available, otherwise "Email"
+- `REC_TIMING`: Typically "Immediate auto-trigger"
+- `REC_HIGHLIGHT`: One-line offer highlight summarizing the offer (e.g., "Mortgage refinance offer")
 
-The same offer data (offer_type, offer_headline, offer_details, cta_text) is also used for the email in Step 4. Use `REC_OFFER_TYPE` as the `offer_type`, `REC_HEADLINE` as the `offer_headline`, `REC_CTA` as the `cta_text`, and `REC_DETAILS` as the `offer_details` when pre-rendering the email template.
+The `REC_HEADLINE` and `REC_CTA` are also used for the email in Step 4. Use `ADJ_DECISION` as the `offer_type`, `REC_HEADLINE` as the `offer_headline`, and `REC_CTA` as the `cta_text` when pre-rendering the email template. For `offer_details` in the email, write 1-2 concise, warm sentences referencing the customer's situation.
 
 **After deciding, render the step 3 card:** Read the template `{SKILL_DIR}/templates/step-3-decide.html`, substitute all `{{PLACEHOLDER}}` markers with the analysis, adjudication, and recommendation data, write to `/tmp/convai-step-3.html`, then preview with `mcp__tdx-studio__preview_document` (path: `/tmp/convai-step-3.html`, title: `Step 3: AI Decisioning`).
 
