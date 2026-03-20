@@ -70,7 +70,7 @@ Repeat for: Checking, Savings, Credit Card, Insurance, Loan.
 
 **Step 3 — `step-3-decide.html`** (card title: AI Decisioning)
 
-The card has 3 layers: ML Model, LLM Real-Time Analysis, and Adjudication.
+The card has 4 layers: ML Model, LLM Real-Time Analysis, Adjudication, and Final Recommendation.
 
 **Layer 1 & 2 placeholders:**
 | Placeholder | Value |
@@ -91,7 +91,15 @@ The card has 3 layers: ML Model, LLM Real-Time Analysis, and Adjudication.
 | `{{ADJ_DECISION}}` | Final product decision — bold (e.g., "Mortgage Refinance") |
 | `{{ADJ_RATIONALE}}` | One-line decision rationale (e.g., "Higher urgency, retention-critical need, and newer signals not captured in batch model") |
 
-Note: Step 3 shows only the 3-layer analysis. The final offer headline, CTA, and offer details are determined here but rendered only in chat text and used in Step 4's email activation.
+**Layer 4 — Final Recommendation placeholders:**
+| Placeholder | Value |
+|---|---|
+| `{{REC_OFFER_TYPE}}` | Final offer type name — user-friendly (e.g., "Mortgage Refinance") |
+| `{{REC_HEADLINE}}` | Customer-friendly headline — warm and clear, not salesy (e.g., "You May Qualify for a Lower Mortgage Rate") |
+| `{{REC_CTA}}` | Short action label (e.g., "Explore Refinance Options") |
+| `{{REC_DETAILS}}` | 1-2 concise sentences — warm, customer-oriented, easy to scan. Reference the customer's situation without being verbose. (e.g., "Your recent income and credit improvements may make you eligible for a better rate. Let's review your refinance options and help you secure a more competitive offer.") |
+
+Note: Layer 4 translates the adjudicated decision into a polished, customer-ready recommendation. Keep the tone warm, clear, and action-oriented — not overly scripted or sales-heavy. The same offer data is also used in Step 4's email activation.
 
 **Step 4 — `step-4-act.html`** (card title: Activation)
 | Placeholder | Value |
@@ -238,11 +246,15 @@ Now reason over BOTH layers to produce the final offer. Apply this logic:
 
 Keep each field to one line. Do NOT write multi-sentence paragraphs. The adjudication section should be scannable at a glance.
 
-**Generate offer_details** — Write 2-3 personalized sentences referencing the customer's actual profile data (grade, credit score, tenure, products held). Make it sound like a private banker writing to a valued client. This is used in the email (Step 4), not rendered in the Step 3 card.
+**Generate final recommendation fields** — Write customer-friendly content for Layer 4:
+- `REC_OFFER_TYPE`: The final offer type from the adjudicated decision (e.g., "Mortgage Refinance")
+- `REC_HEADLINE`: Rewrite the offer headline to be warm, clear, and customer-oriented — not a backend label or overly salesy tagline. (e.g., "You May Qualify for a Lower Mortgage Rate" instead of "Save on Your Mortgage — Lower Rate Available")
+- `REC_CTA`: Short, clear action label (e.g., "Explore Refinance Options" or "Start Your Refinance")
+- `REC_DETAILS`: 1-2 concise sentences referencing the customer's situation. Keep it warm and natural — like a trusted advisor, not a marketing script. Avoid repeating profile data verbatim. (e.g., "Your recent income and credit improvements may make you eligible for a better rate. Let's review your refinance options and help you secure a more competitive offer.")
 
-**After deciding, render the step 3 card:** Read the template `{SKILL_DIR}/templates/step-3-decide.html`, substitute all `{{PLACEHOLDER}}` markers with the analysis and adjudication data, write to `/tmp/convai-step-3.html`, then preview with `mcp__tdx-studio__preview_document` (path: `/tmp/convai-step-3.html`, title: `Step 3: AI Decisioning`).
+The same offer data (offer_type, offer_headline, offer_details, cta_text) is also used for the email in Step 4. Use `REC_OFFER_TYPE` as the `offer_type`, `REC_HEADLINE` as the `offer_headline`, `REC_CTA` as the `cta_text`, and `REC_DETAILS` as the `offer_details` when pre-rendering the email template.
 
-**In chat text after the card**, state the final recommendation (offer type, headline, CTA) and the offer details so the presenter can see the full decision output before proceeding to activation.
+**After deciding, render the step 3 card:** Read the template `{SKILL_DIR}/templates/step-3-decide.html`, substitute all `{{PLACEHOLDER}}` markers with the analysis, adjudication, and recommendation data, write to `/tmp/convai-step-3.html`, then preview with `mcp__tdx-studio__preview_document` (path: `/tmp/convai-step-3.html`, title: `Step 3: AI Decisioning`).
 
 ### Step 4: ACTIVATION — Send the Email
 

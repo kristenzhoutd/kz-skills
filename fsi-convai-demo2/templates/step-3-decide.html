@@ -20,7 +20,7 @@ body{padding:24px;font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe 
 .ltag.llm{color:#7a0dc8}
 .lprod{font-size:15px;font-weight:600;color:#212327;margin-bottom:4px}
 .lrsn{font-size:12px;color:#636A77;line-height:1.5}
-.adjudication{background:#F7F8FB;border-radius:10px;padding:16px;border:1px solid #f0f0f0}
+.adjudication{background:#F7F8FB;border-radius:10px;padding:16px;border:1px solid #f0f0f0;margin-bottom:16px}
 .adj-hdr{display:flex;align-items:center;gap:8px;margin-bottom:12px}
 .adj-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#878F9E}
 .atag{font-size:11px;font-weight:600;padding:2px 10px;border-radius:8px;display:inline-flex;align-items:center;height:22px}
@@ -30,6 +30,13 @@ body{padding:24px;font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe 
 .adj-label{color:#878F9E;font-weight:500;font-size:12px;white-space:nowrap;padding-top:1px}
 .adj-value{color:#212327;font-weight:400;line-height:1.5}
 .adj-value.em{font-weight:600;color:#020713}
+.rec{border-radius:10px;border:1px solid #f0f0f0;overflow:hidden}
+.rec-top{background:#020713;padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
+.rec-offer{font-size:13px;font-weight:600;color:#fff}
+.rec-cta{font-size:12px;font-weight:500;color:#fff;background:rgba(255,255,255,.15);padding:4px 12px;border-radius:6px;text-decoration:none;display:inline-block}
+.rec-body{padding:14px 16px}
+.rec-hl{font-size:14px;font-weight:600;color:#212327;margin-bottom:6px}
+.rec-details{font-size:13px;color:#636A77;line-height:1.6}
 </style></head>
 <body><div class="card">
   <div class="hdr">
@@ -68,6 +75,16 @@ body{padding:24px;font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe 
         <span class="adj-value em">{{ADJ_DECISION}}</span>
         <span class="adj-label">Rationale</span>
         <span class="adj-value">{{ADJ_RATIONALE}}</span>
+      </div>
+    </div>
+    <div class="rec">
+      <div class="rec-top">
+        <span class="rec-offer">{{REC_OFFER_TYPE}}</span>
+        <a class="rec-cta" href="#">{{REC_CTA}}</a>
+      </div>
+      <div class="rec-body">
+        <div class="rec-hl">{{REC_HEADLINE}}</div>
+        <div class="rec-details">{{REC_DETAILS}}</div>
       </div>
     </div>
   </div>
