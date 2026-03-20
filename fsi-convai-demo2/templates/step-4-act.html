@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{padding:24px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fafafa}
+.card{max-width:480px;margin:0 auto;background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);border-top:3px solid #c4a35a;padding:24px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.title{font-size:15px;font-weight:700;color:#0f1b61}
+.step{font-size:10px;color:#999;font-weight:600;letter-spacing:1px}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:5px 14px;border-radius:20px;margin-bottom:16px}
+.status.ok{background:#f0fdf4;color:#166534}
+.status.fail{background:#fef2f2;color:#991b1b}
+.grid{display:grid;grid-template-columns:80px 1fr;row-gap:10px;font-size:13px}
+.gl{color:#999;font-weight:500}
+.gv{color:#1a1a1a}
+.gv.em{color:#0f1b61;font-weight:600}
+.gv.mono{font-size:11px;font-family:monospace;color:#666}
+</style></head>
+<body><div class="card">
+  <div class="top">
+    <span class="title">Activation</span>
+    <span class="step">4 / 4</span>
+  </div>
+  <div class="status {{STATUS_CLASS}}">
+    <span style="font-size:14px">{{STATUS_ICON}}</span> {{STATUS_TEXT}}
+  </div>
+  <div class="grid">
+    <span class="gl">To</span>
+    <span class="gv em">{{RECIPIENT}}</span>
+    <span class="gl">Subject</span>
+    <span class="gv em">{{SUBJECT}}</span>
+    <span class="gl">Offer</span>
+    <span class="gv">{{OFFER_TYPE}}</span>
+    <span class="gl">Task ID</span>
+    <span class="gv mono">{{TASK_ID}}</span>
+  </div>
+</div></body></html>

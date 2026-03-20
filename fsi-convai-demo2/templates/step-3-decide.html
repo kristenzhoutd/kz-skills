@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{padding:24px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fafafa}
+.card{max-width:500px;margin:0 auto;background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);border-top:3px solid #c4a35a;padding:24px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.title{font-size:15px;font-weight:700;color:#0f1b61}
+.step{font-size:10px;color:#999;font-weight:600;letter-spacing:1px}
+.layers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.lbox{border-radius:10px;padding:12px;border:1px solid}
+.lbox.ml{background:#f5f7ff;border-color:#dde3fc}
+.lbox.llm{background:#faf5ff;border-color:#ecdff5}
+.ltag{font-size:9px;font-weight:700;letter-spacing:1px;padding:2px 6px;border-radius:4px;display:inline-block;margin-bottom:6px;color:#fff}
+.ltag.ml{background:#4f46e5}
+.ltag.llm{background:#9333ea}
+.lprod{font-size:13px;font-weight:700;color:#0f1b61;margin-bottom:2px}
+.lrsn{font-size:11px;color:#777;line-height:1.4}
+.rec{background:linear-gradient(135deg,#0f1b61,#1e3a8a);border-radius:10px;padding:16px;color:#fff;margin-bottom:16px}
+.rec-tag{font-size:9px;font-weight:700;letter-spacing:1.2px;color:#c4a35a;margin-bottom:4px}
+.abadge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.5px;padding:2px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
+.abadge.agree{background:rgba(34,197,94,.2);color:#86efac}
+.abadge.refined{background:rgba(196,163,90,.2);color:#c4a35a}
+.rec-prod{font-size:18px;font-weight:700;margin-bottom:2px}
+.rec-hl{font-size:12px;color:#94a3b8;margin-bottom:8px}
+.rec-why{font-size:11px;color:#cbd5e1;line-height:1.5;background:rgba(255,255,255,.07);border-radius:6px;padding:8px 10px}
+.signals{margin-bottom:14px}
+.sig{display:flex;align-items:start;gap:8px;margin-bottom:6px;font-size:11px;color:#666;line-height:1.4}
+.sig:last-child{margin-bottom:0}
+.dot{width:7px;height:7px;border-radius:50%;margin-top:4px;flex-shrink:0}
+.dot.bl{background:#3b82f6}.dot.pu{background:#9333ea}.dot.gn{background:#22c55e}.dot.gd{background:#c4a35a}
+.sig b{color:#0f1b61}
+.cta{display:block;text-align:center;background:#0f1b61;color:#c4a35a;font-size:13px;font-weight:700;padding:10px;border-radius:8px;text-decoration:none;letter-spacing:.4px}
+</style></head>
+<body><div class="card">
+  <div class="top">
+    <span class="title">AI Decisioning</span>
+    <span class="step">3 / 4</span>
+  </div>
+  <div class="layers">
+    <div class="lbox ml">
+      <span class="ltag ml">ML MODEL</span>
+      <div class="lprod">{{ML_PRODUCT}}</div>
+      <div class="lrsn">{{ML_REASON}}</div>
+    </div>
+    <div class="lbox llm">
+      <span class="ltag llm">LLM ANALYSIS</span>
+      <div class="lprod">{{LLM_PRODUCT}}</div>
+      <div class="lrsn">{{LLM_REASON}}</div>
+    </div>
+  </div>
+  <div class="rec">
+    <div class="rec-tag">RECOMMENDATION <span class="abadge {{AGREEMENT_CLASS}}">{{AGREEMENT_LABEL}}</span></div>
+    <div class="rec-prod">{{OFFER_TYPE}}</div>
+    <div class="rec-hl">{{OFFER_HEADLINE}}</div>
+    <div class="rec-why">{{LLM_DECISIONING_RATIONALE}}</div>
+  </div>
+  <div class="signals">
+    <div class="sig"><span class="dot bl"></span><span>{{SIGNAL_1}}</span></div>
+    <div class="sig"><span class="dot pu"></span><span>{{SIGNAL_2}}</span></div>
+    <div class="sig"><span class="dot gn"></span><span>{{SIGNAL_3}}</span></div>
+    <div class="sig"><span class="dot gd"></span><span>{{SIGNAL_4}}</span></div>
+  </div>
+  <a class="cta" href="#">{{CTA_TEXT}}</a>
+</div></body></html>
