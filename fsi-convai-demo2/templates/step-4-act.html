@@ -2,24 +2,34 @@
 <html><head><meta charset="utf-8"><style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{padding:24px;font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#fff;color:#020713;line-height:1.75}
-.card{max-width:480px;margin:0 auto;background:#fff;border:1px solid #e6e6e7;border-radius:8px;box-shadow:0 2px 4px rgba(135,143,158,.25);overflow:hidden}
-.hdr{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid #e6e6e7}
-.title{font-size:16px;font-weight:600;color:#020713}
-.step{font-size:12px;font-weight:600;color:#676a71}
+.card{max-width:480px;margin:0 auto;background:#fff;border:1px solid #f0f0f0;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.03);overflow:hidden}
+.hdr{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #f0f0f0}
+.hdr-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hdr-icon.ok{background:rgba(17,176,118,.1)}
+.hdr-icon.ok svg{color:#11b076}
+.hdr-icon.fail{background:rgba(239,68,68,.1)}
+.hdr-icon.fail svg{color:#ef4444}
+.hdr-icon svg{width:16px;height:16px}
+.hdr-text{flex:1}
+.title{font-size:14px;font-weight:600;color:#212327}
+.step{font-size:10px;font-weight:500;color:#878F9E;letter-spacing:.5px}
 .body{padding:20px}
-.status{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:0 8px;border-radius:8px;height:24px;margin-bottom:16px}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:2px 10px;border-radius:8px;height:24px;margin-bottom:16px}
 .status.ok{background:#e7f7f1;color:#0a6a47}
 .status.fail{background:#fdecec;color:#bf3636}
-.grid{display:grid;grid-template-columns:80px 1fr;row-gap:10px;font-size:14px}
-.gl{color:#676a71;font-weight:400}
-.gv{color:#020713;font-weight:400}
-.gv.em{font-weight:600}
-.gv.mono{font-size:12px;font-family:"Roboto Mono",ui-monospace,SFMono-Regular,monospace;color:#676a71}
+.grid{display:grid;grid-template-columns:72px 1fr;row-gap:12px;font-size:13px}
+.gl{font-size:12px;color:#878F9E;font-weight:500;padding-top:1px}
+.gv{color:#212327;font-weight:400}
+.gv.em{font-weight:600;color:#020713}
+.gv.mono{font-size:11px;font-family:"Roboto Mono",ui-monospace,SFMono-Regular,monospace;color:#636A77;background:#F7F8FB;padding:2px 6px;border-radius:4px}
 </style></head>
 <body><div class="card">
   <div class="hdr">
-    <span class="title">Activation</span>
-    <span class="step">4 / 4</span>
+    <div class="hdr-icon {{STATUS_CLASS}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg></div>
+    <div class="hdr-text">
+      <div class="title">Activation</div>
+      <div class="step">STEP 4 OF 4</div>
+    </div>
   </div>
   <div class="body">
     <div class="status {{STATUS_CLASS}}">

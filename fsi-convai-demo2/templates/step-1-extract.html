@@ -2,20 +2,27 @@
 <html><head><meta charset="utf-8"><style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{padding:24px;font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#fff;color:#020713;line-height:1.75}
-.card{max-width:480px;margin:0 auto;background:#fff;border:1px solid #e6e6e7;border-radius:8px;box-shadow:0 2px 4px rgba(135,143,158,.25);overflow:hidden}
-.hdr{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid #e6e6e7}
-.title{font-size:16px;font-weight:600;color:#020713}
-.step{font-size:12px;font-weight:600;color:#676a71}
+.card{max-width:480px;margin:0 auto;background:#fff;border:1px solid #f0f0f0;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.03);overflow:hidden}
+.hdr{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #f0f0f0}
+.hdr-icon{width:32px;height:32px;border-radius:8px;background:rgba(59,111,212,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hdr-icon svg{width:16px;height:16px;color:#3B6FD4}
+.hdr-text{flex:1}
+.title{font-size:14px;font-weight:600;color:#212327}
+.step{font-size:10px;font-weight:500;color:#878F9E;letter-spacing:.5px}
 .body{padding:20px}
-.grid{display:grid;grid-template-columns:80px 1fr;row-gap:12px;font-size:14px}
-.gl{color:#676a71;font-weight:400}
-.gv{color:#020713;font-weight:400}
-.gv.em{font-weight:600}
+.grid{display:grid;grid-template-columns:80px 1fr;row-gap:14px;font-size:14px}
+.gl{font-size:12px;color:#878F9E;font-weight:500;padding-top:2px}
+.gv{color:#212327;font-weight:400}
+.gv.em{font-weight:600;color:#020713}
+.highlight{background:#F7F8FB;border-radius:8px;padding:10px 14px;border:1px solid #f0f0f0}
 </style></head>
 <body><div class="card">
   <div class="hdr">
-    <span class="title">Conversational Intelligence</span>
-    <span class="step">1 / 4</span>
+    <div class="hdr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6Z"/></svg></div>
+    <div class="hdr-text">
+      <div class="title">Conversational Intelligence</div>
+      <div class="step">STEP 1 OF 4</div>
+    </div>
   </div>
   <div class="body">
     <div class="grid">
@@ -26,7 +33,7 @@ body{padding:24px;font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe 
       <span class="gl">Account</span>
       <span class="gv">{{ACCOUNT}}</span>
       <span class="gl">Intent</span>
-      <span class="gv em">{{INTENT}}</span>
+      <div class="highlight"><span class="gv em">{{INTENT}}</span></div>
       <span class="gl">Signals</span>
       <span class="gv">{{SIGNALS}}</span>
     </div>
