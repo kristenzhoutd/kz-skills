@@ -77,16 +77,9 @@ Repeat for: Checking, Savings, Credit Card, Insurance, Loan.
 | `{{LLM_REASON}}` | Short reason for LLM pick (e.g., "Rate frustration + income increase = refinance urgency") |
 | `{{AGREEMENT_CLASS}}` | "agree" if ML and LLM agree, "refined" if real-time context refines the ML recommendation |
 | `{{AGREEMENT_LABEL}}` | "ML + REAL-TIME ALIGNED" or "REAL-TIME INSIGHT" or "REAL-TIME DECISIONING" (when ML is NULL) |
-| `{{OFFER_TYPE}}` | Final offer type name (after LLM adjudication) |
-| `{{OFFER_HEADLINE}}` | Headline from offer mapping table |
-| `{{LLM_DECISIONING_RATIONALE}}` | 2-3 sentence LLM explanation of WHY this final offer was chosen, referencing both ML input and conversation signals |
-| `{{SIGNAL_1}}` | ML model signal (blue dot) — e.g., `ML model: <b>next_best_product = Premium Member</b> (propensity: 0.82)` |
-| `{{SIGNAL_2}}` | LLM conversation signal (purple dot) — e.g., `Conversation: customer expressed <b>rate frustration</b> + <b>income increase</b>` |
-| `{{SIGNAL_3}}` | Profile attribute signal (green dot) — e.g., `Profile: Grade <b>A</b>, credit score <b>742</b>, <b>12-year</b> tenure` |
-| `{{SIGNAL_4}}` | Final decisioning signal (gold dot) — e.g., `Decision: LLM confirms ML — <b>Premium Member</b> aligns with upgrade intent` |
-| `{{CTA_TEXT}}` | CTA button text |
+| `{{LLM_DECISIONING_RATIONALE}}` | 2-3 sentence LLM explanation referencing both ML input and conversation signals |
 
-Note: Source, channel, and personalized offer details are omitted from the card — they are communicated in chat and used in the email (Step 4). The card focuses on the decisioning logic.
+Note: Step 3 shows only the ML vs LLM analysis comparison and rationale. The recommendation card, decision signals, offer details, and CTA are removed from this card — the final offer, headline, and CTA are determined here but rendered only in chat text and used in Step 4's email activation.
 
 **Step 4 — `step-4-act.html`** (card title: Activation)
 | Placeholder | Value |
@@ -228,13 +221,9 @@ Now reason over BOTH layers to produce the final offer. Apply this logic:
 
 **Generate offer_details** — Write 2-3 personalized sentences referencing the customer's actual profile data (grade, credit score, tenure, products held). Make it sound like a private banker writing to a valued client.
 
-**Generate decision signals** — Write exactly 4 signals for the card:
-- Signal 1 (blue dot): ML model signal — e.g., `ML model: <b>next_best_product = Premium Member</b> (batch propensity score)`
-- Signal 2 (purple dot): LLM conversation signal — e.g., `Conversation: customer expressed <b>rate frustration</b> + mentioned <b>income increase</b>`
-- Signal 3 (green dot): Profile attribute signal — e.g., `Profile: Grade <b>A</b>, credit score <b>742</b>, <b>12-year</b> tenure`
-- Signal 4 (gold dot): Final decisioning signal — e.g., `Decision: Real-time context refines recommendation — <b>Mortgage Refinance</b> matches urgent conversation intent`
+**After deciding, render the step 3 card:** Read the template `{SKILL_DIR}/templates/step-3-decide.html`, substitute all `{{PLACEHOLDER}}` markers with the ML/LLM analysis and rationale data, write to `/tmp/convai-step-3.html`, then preview with `mcp__tdx-studio__preview_document` (path: `/tmp/convai-step-3.html`, title: `Step 3: AI Decisioning`).
 
-**After deciding, render the step 3 card:** Read the template `{SKILL_DIR}/templates/step-3-decide.html`, substitute all `{{PLACEHOLDER}}` markers with the offer data, write to `/tmp/convai-step-3.html`, then preview with `mcp__tdx-studio__preview_document` (path: `/tmp/convai-step-3.html`, title: `Step 3: AI Decisioning`).
+**In chat text after the card**, state the final recommendation (offer type, headline, CTA) and the offer details so the presenter can see the full decision output before proceeding to activation.
 
 ### Step 4: ACTIVATION — Send the Email
 
