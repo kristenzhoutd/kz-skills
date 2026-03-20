@@ -52,12 +52,11 @@ The cards ARE the output. Chat text is only for brief status transitions between
 | `{{PHONE}}` | Phone or "Not provided" |
 | `{{ACCOUNT}}` | Account number or "Not provided" |
 | `{{INTENT}}` | Extracted intent summary |
-| `{{SIGNALS}}` | Key financial signals |
-| `{{ENRICHMENT_PILLS}}` | Pre-built HTML pill spans for profile enrichment (see below) |
+| `{{ENRICHMENT_PILLS}}` | Pre-built HTML pill spans for detected signals (see below) |
 
 Note: The full transcript is NOT rendered in the card — it is already visible in the chat context. The card shows only the extracted fields.
 
-For `{{ENRICHMENT_PILLS}}`, generate pill HTML for each detected profile enrichment attribute:
+For `{{ENRICHMENT_PILLS}}`, generate pill HTML for each detected signal / profile enrichment attribute:
 ```
 <span class="etag"><b>Income</b> Increased</span>
 <span class="etag"><b>Credit</b> Improved</span>
