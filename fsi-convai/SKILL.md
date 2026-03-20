@@ -53,8 +53,17 @@ The cards ARE the output. Chat text is only for brief status transitions between
 | `{{ACCOUNT}}` | Account number or "Not provided" |
 | `{{INTENT}}` | Extracted intent summary |
 | `{{SIGNALS}}` | Key financial signals |
+| `{{ENRICHMENT_PILLS}}` | Pre-built HTML pill spans for profile enrichment (see below) |
 
 Note: The full transcript is NOT rendered in the card — it is already visible in the chat context. The card shows only the extracted fields.
+
+For `{{ENRICHMENT_PILLS}}`, generate pill HTML for each detected profile enrichment attribute:
+```
+<span class="etag"><b>Income</b> Increased</span>
+<span class="etag"><b>Credit</b> Improved</span>
+<span class="etag"><b>Refinance Intent</b> High</span>
+```
+Each pill shows the attribute name in bold + the value/signal. Only include high-confidence signals explicitly stated or strongly implied by the conversation.
 
 **Step 2 — `step-2-lookup.html`** (card title: CDP Profile)
 | Placeholder | Value |
@@ -74,6 +83,17 @@ Note: The full transcript is NOT rendered in the card — it is already visible 
 | `{{PRODUCT_PILLS}}` | Pre-built HTML pill spans (see below) |
 
 Note: Demographic fields (age, marital status, education, employment) are omitted from the card for brevity — they remain available in the CDP query result for decisioning in Step 3.
+
+The Step 2 card includes a visually highlighted "New Profile Signals" section. For `{{ENRICHMENT_ROWS}}`, generate key-value row HTML for each profile enrichment attribute detected in Step 1:
+```
+<span class="enrich-attr">Income</span><span class="enrich-val">Increased</span>
+<span class="enrich-attr">Credit</span><span class="enrich-val">Improved</span>
+<span class="enrich-attr">Mortgage Sentiment</span><span class="enrich-val">Frustrated</span>
+<span class="enrich-attr">Competitor</span><span class="enrich-val">5.4% rate referenced</span>
+<span class="enrich-attr">Refinance Intent</span><span class="enrich-val">High</span>
+<span class="enrich-attr">Retention Risk</span><span class="enrich-val">Elevated</span>
+```
+Use the same enrichment attributes extracted in Step 1. This section shows that new customer intelligence from the conversation can be written back to the CDP profile.
 
 For `{{PRODUCT_PILLS}}`, generate this HTML based on the Y/N product columns:
 ```
@@ -139,6 +159,17 @@ Extract customer identifiers and intent from the transcript:
 - **Account number** — if mentioned
 - **Intent** — what the customer wants (e.g., "asking about mortgage rates", "wants to open savings", "inquiring about premium services")
 - **Key signals** — any financial details mentioned (income, property value, existing products)
+
+**Extract profile enrichment attributes** — Identify new customer information from the conversation that could enrich the CDP profile. Only extract high-confidence signals that are explicitly stated or strongly implied. Examples:
+- Income change (e.g., "got a raise", "income increased")
+- Credit status (e.g., "credit score improved", "better standing")
+- Product sentiment (e.g., "frustrated with mortgage rate", "unhappy with fees")
+- Competitor mention (e.g., "neighbor got 5.4%", "shopping around")
+- Product intent (e.g., refinance intent, savings interest)
+- Retention risk (e.g., "thinking about switching", "threatening to leave")
+- Life stage signals (e.g., "just had a baby", "retiring soon")
+
+Record each as a short attribute name + value/signal pair. These are carried through to Step 2 for visual highlighting.
 
 If the transcript doesn't contain a recognizable customer name, ask the user for clarification before proceeding.
 

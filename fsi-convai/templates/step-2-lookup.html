@@ -27,6 +27,14 @@ body{padding:24px;font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe 
 .pill{font-size:12px;font-weight:600;padding:0 8px;border-radius:8px;height:24px;display:inline-flex;align-items:center}
 .pill.yes{background:#e7f7f1;color:#0a6a47}
 .pill.no{background:#f2f3f3;color:#b3b5b8}
+.enrich-section{margin-top:16px;background:linear-gradient(135deg,#FAFBFF,#F0F4FF);border:1px solid #D4DFFF;border-radius:10px;padding:14px}
+.enrich-hdr{display:flex;align-items:center;gap:6px;margin-bottom:10px}
+.enrich-icon{width:20px;height:20px;border-radius:6px;background:rgba(59,111,212,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.enrich-icon svg{width:10px;height:10px;color:#3B6FD4}
+.enrich-title{font-size:10px;font-weight:600;color:#3B6FD4;text-transform:uppercase;letter-spacing:.5px}
+.enrich-grid{display:grid;grid-template-columns:auto 1fr;row-gap:6px;column-gap:10px;font-size:12px}
+.enrich-attr{color:#636A77;font-weight:500}
+.enrich-val{color:#212327;font-weight:600}
 </style></head>
 <body><div class="card">
   <div class="hdr">
@@ -71,5 +79,12 @@ body{padding:24px;font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe 
     </div>
     <div class="sec">Products Held</div>
     <div class="pills">{{PRODUCT_PILLS}}</div>
+    <div class="enrich-section">
+      <div class="enrich-hdr">
+        <div class="enrich-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6Z"/></svg></div>
+        <span class="enrich-title">New Profile Signals</span>
+      </div>
+      <div class="enrich-grid">{{ENRICHMENT_ROWS}}</div>
+    </div>
   </div>
 </div></body></html>
