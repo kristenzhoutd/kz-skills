@@ -1,26 +1,17 @@
 {
-  "name": "td-internal-skills",
+  "name": "kz-skills",
   "description": "Internal Treasure Data skills for demos",
   "owner": {
-    "name": "td-rahul"
+    "name": "kristenzhoutd"
   },
   "plugins": [
     {
-      "name": "fsi-convai-demo",
+      "name": "fsi-convai",
       "description": "FSI Conversational AI demo skill",
       "source": "./",
       "strict": false,
       "skills": [
-        "./fsi-convai-demo2"
-      ]
-    },
-    {
-      "name": "fsi-governance",
-      "description": "FSI Governance-Aware Agent. Detects the logged-in user (Mortgage Agent, Wealth Agent, or Credit Card Agent), discovers folder-level permissions via CDP API, and blocks unauthorized segment/folder actions with 403 messages. Register the 3 agent API keys as Treasure Studio profiles to demo.",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./fsi-governance"
+        "./fsi-convai"
       ]
     }
   ]
