@@ -1211,6 +1211,16 @@ section {
   transition: color 0.2s ease;
 }
 
+.ref-card-expand-hint .hint-close { display: none; }
+.ref-card-expand-hint .hint-open { display: inline; }
+.ref-card-expand-hint .hint-label-open { display: inline; }
+.ref-card-expand-hint .hint-label-close { display: none; }
+
+.ref-card-clickable.selected .ref-card-expand-hint .hint-close { display: inline; }
+.ref-card-clickable.selected .ref-card-expand-hint .hint-open { display: none; }
+.ref-card-clickable.selected .ref-card-expand-hint .hint-label-open { display: none; }
+.ref-card-clickable.selected .ref-card-expand-hint .hint-label-close { display: inline; }
+
 .ref-card-detail-label {
   font-size: 10px;
   font-weight: 700;
@@ -2058,8 +2068,10 @@ section {
         <div class="ref-card-stat"><strong>15M+</strong> app users</div>
         <div class="ref-card-stat"><strong>100+</strong> journeys in production</div>
         <div class="ref-card-expand-hint">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
-          View case study
+          <svg class="hint-open" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+          <svg class="hint-close" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+          <span class="hint-label-open">View case study</span>
+          <span class="hint-label-close">Close</span>
         </div>
       </div>
 
@@ -2069,8 +2081,10 @@ section {
         <div class="ref-card-stat"><strong>5T</strong> data points</div>
         <div class="ref-card-stat">Segmentation: <strong>7d &rarr; 1d</strong></div>
         <div class="ref-card-expand-hint">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
-          View case study
+          <svg class="hint-open" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+          <svg class="hint-close" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+          <span class="hint-label-open">View case study</span>
+          <span class="hint-label-close">Close</span>
         </div>
       </div>
 
@@ -2079,8 +2093,10 @@ section {
         <div class="ref-card-stat"><strong>$16M+</strong> marketing ROI</div>
         <div class="ref-card-stat"><strong>47%</strong> conversion lift</div>
         <div class="ref-card-expand-hint">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
-          View case study
+          <svg class="hint-open" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+          <svg class="hint-close" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+          <span class="hint-label-open">View case study</span>
+          <span class="hint-label-close">Close</span>
         </div>
       </div>
 
@@ -2089,8 +2105,10 @@ section {
         <div class="ref-card-stat"><strong>600K</strong> events/sec</div>
         <div class="ref-card-stat">Gaming-scale real-time</div>
         <div class="ref-card-expand-hint">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
-          View case study
+          <svg class="hint-open" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+          <svg class="hint-close" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+          <span class="hint-label-open">View case study</span>
+          <span class="hint-label-close">Close</span>
         </div>
       </div>
     </div>
