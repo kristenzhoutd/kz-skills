@@ -486,6 +486,32 @@ section {
   line-height: 1.6;
 }
 
+.stage-bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  color: var(--neutral-7);
+  line-height: 1.6;
+}
+
+.stage-bullets li {
+  padding: 2px 0;
+  padding-left: 14px;
+  position: relative;
+}
+
+.stage-bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--neutral-3);
+}
+
 /* ===== CONNECTOR ARROWS ===== */
 .stage-connector {
   display: flex;
@@ -2070,7 +2096,11 @@ section {
           <div class="stage-card">
             <div class="stage-num">1</div>
             <div class="stage-title">Understand</div>
-            <div class="stage-desc">Identity: Monica Chen, 12yr customer. Intent: Mortgage refinance. Urgency: High (churn risk)</div>
+            <ul class="stage-bullets">
+              <li>Monica Chen, 12yr customer</li>
+              <li>Intent: Mortgage refinance</li>
+              <li>Urgency: High (churn risk)</li>
+            </ul>
           </div>
         </div>
         <div class="stage-connector">
@@ -2080,7 +2110,12 @@ section {
           <div class="stage-card">
             <div class="stage-num" style="background: var(--brand-purple);">2</div>
             <div class="stage-title">Ground</div>
-            <div class="stage-desc">Credit: 780. LTV: 62%. ML score: High retention value. Segment: Premium Loyal</div>
+            <ul class="stage-bullets">
+              <li>Credit score: 780</li>
+              <li>LTV: 62%</li>
+              <li>ML score: High retention</li>
+              <li>Segment: Premium Loyal</li>
+            </ul>
           </div>
         </div>
         <div class="stage-connector">
@@ -2090,7 +2125,11 @@ section {
           <div class="stage-card">
             <div class="stage-num" style="background: var(--deep-blue);">3</div>
             <div class="stage-title">Decide</div>
-            <div class="stage-desc">ML model: Savings Account. ConvAI override: Mortgage Refinance at 4.8% + fee waiver</div>
+            <ul class="stage-bullets">
+              <li>ML model: Savings Account</li>
+              <li>ConvAI override: Refinance</li>
+              <li>Rate: 4.8% + fee waiver</li>
+            </ul>
           </div>
         </div>
         <div class="stage-connector">
@@ -2100,7 +2139,11 @@ section {
           <div class="stage-card">
             <div class="stage-num" style="background: var(--success-6);">4</div>
             <div class="stage-title">Activate</div>
-            <div class="stage-desc">Frontline terminal: real-time offer. Email follow-up. Branch manager notification</div>
+            <ul class="stage-bullets">
+              <li>Frontline: real-time offer</li>
+              <li>Email follow-up</li>
+              <li>Branch manager alert</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -2316,31 +2359,29 @@ section {
       <div class="section-title"><strong>Forecastable OPEX</strong> &mdash; Not Token-Based Billing</div>
     </div>
 
-    <div class="grid-3 reveal reveal-delay-1" style="margin-top: 36px;">
+    <div class="grid-2 reveal reveal-delay-1" style="margin-top: 36px;">
       <div class="pillar-card">
         <div class="pillar-icon" style="background: var(--primary-0);">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary-5)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </div>
-        <div class="pillar-title">Profiles Under Management</div>
-        <div class="pillar-desc">Volume-based pricing tied to the number of unified customer profiles in the CDP</div>
-      </div>
-      <div class="pillar-card">
-        <div class="pillar-icon" style="background: #f3f0ff;">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand-purple)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-        </div>
-        <div class="pillar-title">Activation Volume</div>
-        <div class="pillar-desc">Predictable cost per activation event across all connected channels</div>
+        <div class="pillar-title">Profiles &amp; Behaviors Under Management</div>
+        <div class="pillar-desc">Volume-based pricing tied to unified customer profiles and behavioral events in the CDP</div>
       </div>
       <div class="pillar-card">
         <div class="pillar-icon" style="background: #ecfdf5;">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--success-6)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
         </div>
-        <div class="pillar-title">AI Studio Credits</div>
+        <div class="pillar-title">AI Credits</div>
         <div class="pillar-desc">Pre-purchased credit packs for ML model training, scoring, and AI agent execution</div>
       </div>
     </div>
 
-    <div class="highlight-box reveal reveal-delay-2">
+    <div class="note-box reveal reveal-delay-2">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      AI Credits can be estimated upfront based on task types (e.g. scoring, journey orchestration, conversational AI) and expected task volume &mdash; making costs predictable before deployment.
+    </div>
+
+    <div class="highlight-box reveal reveal-delay-3">
       <div class="highlight-box-icon" style="background: #ecfdf5;">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--success-6)" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
       </div>
@@ -2377,17 +2418,17 @@ section {
 
       <div class="closing-card">
         <div class="closing-card-num">Step 2</div>
-        <div class="closing-card-title">Tailored POC</div>
+        <div class="closing-card-title">Milan Showcase</div>
         <div class="closing-card-desc">
-          Bank-specific data model, use case, and scale validation. Proof of value on real infrastructure and constraints.
+          End-of-May event. 70&ndash;80 brands, 100 C-levels. Live demonstration with real customer stories.
         </div>
       </div>
 
       <div class="closing-card">
         <div class="closing-card-num">Step 3</div>
-        <div class="closing-card-title">Milan Showcase</div>
+        <div class="closing-card-title">Tailored POC</div>
         <div class="closing-card-desc">
-          End-of-May event. 70&ndash;80 brands, 100 C-levels. Live demonstration with real customer stories.
+          Bank-specific data model, use case, and scale validation. Proof of value on real infrastructure and constraints.
         </div>
       </div>
     </div>
