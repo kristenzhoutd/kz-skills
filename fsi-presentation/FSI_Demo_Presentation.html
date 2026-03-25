@@ -1188,77 +1188,16 @@ section {
   font-weight: 600;
 }
 
-/* ===== EXPANDABLE CASE STUDY CARDS ===== */
-.ref-card-expandable {
+/* ===== CASE STUDY DRAWER ===== */
+.ref-card-clickable {
   cursor: pointer;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.ref-card-expandable .ref-card-front {
-  transition: opacity 0.3s ease, max-height 0.4s ease;
-  max-height: 300px;
-  overflow: hidden;
-}
-
-.ref-card-expandable .ref-card-details {
-  display: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.ref-card-expandable.expanded .ref-card-front {
-  display: none;
-}
-
-.ref-card-expandable.expanded .ref-card-details {
-  display: block;
-  opacity: 1;
-}
-
-.ref-card-expandable.expanded {
-  grid-column: 1 / -1;
-  box-shadow: var(--shadow-lg);
-  border-color: var(--primary-2);
-}
-
-.ref-card-expandable.expanded .ref-card-details {
-  display: grid;
-  grid-template-columns: auto 1fr 1fr 1fr auto;
-  gap: 16px;
-  align-items: start;
-}
-
-.ref-card-expandable.expanded .ref-card-details > .ref-card-name {
-  grid-column: 1;
-  align-self: center;
-  font-size: 18px;
-  min-width: 100px;
-}
-
-.ref-card-detail-section {
-  padding: 0 12px;
-  border-left: 2px solid var(--neutral-2);
-}
-
-.ref-card-detail-label {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--primary-5);
-  margin-bottom: 6px;
-}
-
-.ref-card-detail-text {
-  font-size: 12px;
-  color: var(--neutral-7);
-  line-height: 1.6;
-}
-
-.ref-card-detail-text strong {
-  color: var(--neutral-11);
-  font-weight: 700;
+.ref-card-clickable.selected {
+  border-color: var(--primary-5);
+  box-shadow: var(--shadow-lg), 0 0 0 2px var(--primary-3);
+  transform: translateY(-3px);
 }
 
 .ref-card-expand-hint {
@@ -1272,20 +1211,106 @@ section {
   transition: color 0.2s ease;
 }
 
-.ref-card-expandable.expanded .ref-card-expand-hint {
+.ref-card-detail-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--primary-5);
+  margin-bottom: 6px;
+}
+
+.ref-card-detail-text {
+  font-size: 13px;
+  color: var(--neutral-7);
+  line-height: 1.7;
+}
+
+.ref-card-detail-text strong {
+  color: var(--neutral-11);
+  font-weight: 700;
+}
+
+.case-drawer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease, margin-top 0.45s ease;
+  opacity: 0;
   margin-top: 0;
-  align-self: center;
-  justify-self: end;
+}
+
+.case-drawer.open {
+  max-height: 400px;
+  opacity: 1;
+  margin-top: 20px;
+}
+
+.case-drawer-inner {
+  background: var(--neutral-0);
+  border: 1px solid var(--neutral-2);
+  border-radius: var(--radius-2xl);
+  padding: 28px 32px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+
+.case-drawer-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--neutral-1);
+  border: 1px solid var(--neutral-2);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--neutral-7);
+}
+
+.case-drawer-close:hover {
+  background: var(--neutral-2);
+  color: var(--neutral-11);
+}
+
+.case-drawer-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--neutral-11);
+  margin-bottom: 20px;
+}
+
+.case-drawer-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+}
+
+.case-drawer-col {
+  padding-left: 16px;
+  border-left: 2px solid var(--neutral-2);
+}
+
+.case-drawer-col:first-child {
+  padding-left: 0;
+  border-left: none;
 }
 
 @media (max-width: 900px) {
-  .ref-card-expandable.expanded .ref-card-details {
+  .case-drawer-columns {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 16px;
   }
-  .ref-card-expandable.expanded .ref-card-details > .ref-card-name {
-    grid-column: 1;
+  .case-drawer-col {
+    padding-left: 0;
+    border-left: none;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--neutral-2);
   }
+  .case-drawer-col:last-child { border-bottom: none; padding-bottom: 0; }
 }
 
 /* ===== PILLAR CARDS ===== */
@@ -1499,6 +1524,142 @@ section {
 }
 
 .key-hint.hidden { opacity: 0; }
+
+/* ===== AGENDA LIST ===== */
+.agenda-list {
+  max-width: 860px;
+}
+
+.agenda-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--neutral-2);
+  transition: all 0.2s ease;
+}
+
+.agenda-item:hover {
+  padding-left: 8px;
+}
+
+.agenda-item.agenda-item-demo {
+  align-items: flex-start;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.agenda-num {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.agenda-content {
+  flex: 1;
+}
+
+.agenda-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--neutral-11);
+  margin-bottom: 4px;
+}
+
+.agenda-desc {
+  font-size: 13px;
+  color: var(--neutral-7);
+  line-height: 1.6;
+}
+
+.agenda-tag {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--neutral-5);
+  background: var(--neutral-1);
+  border: 1px solid var(--neutral-2);
+  border-radius: 100px;
+  padding: 4px 12px;
+  white-space: nowrap;
+  align-self: center;
+}
+
+.agenda-sub-items {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-left: 4px;
+}
+
+.agenda-sub-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.agenda-sub-marker {
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  border-radius: 50%;
+  margin-top: 6px;
+}
+
+.agenda-sub-marker.demo1 { background: var(--primary-5); }
+.agenda-sub-marker.demo2 { background: var(--brand-purple); }
+.agenda-sub-marker.demo3 { background: var(--amber); }
+
+.agenda-sub-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--neutral-9);
+  margin-bottom: 2px;
+}
+
+.agenda-sub-detail {
+  font-size: 12px;
+  color: var(--neutral-7);
+  line-height: 1.6;
+}
+
+.agenda-chip {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.agenda-chip.batch {
+  background: var(--primary-0);
+  color: var(--primary-7);
+  border: 1px solid var(--primary-2);
+}
+
+.agenda-chip.rt {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+@media (max-width: 768px) {
+  .agenda-tag { display: none; }
+  .agenda-item { gap: 14px; }
+}
 
 /* ===== HIGHLIGHT BOX ===== */
 .highlight-box {
@@ -1729,15 +1890,16 @@ section {
 <!-- Side Nav Dots -->
 <nav class="nav" id="sideNav">
   <div class="nav-dot active" data-section="cover"><span class="nav-label">Cover</span></div>
+  <div class="nav-dot" data-section="agenda"><span class="nav-label">Agenda</span></div>
   <div class="nav-dot" data-section="scale"><span class="nav-label">At Scale</span></div>
-  <div class="nav-dot" data-section="landscape"><span class="nav-label">Product Landscape</span></div>
-  <div class="nav-dot" data-section="activation"><span class="nav-label">Activation</span></div>
-  <div class="nav-dot" data-section="integrationhub"><span class="nav-label">Integration Hub</span></div>
   <div class="nav-dot" data-section="journey"><span class="nav-label">Journey Orchestration</span></div>
   <div class="nav-dot" data-section="realtime"><span class="nav-label">Real-Time</span></div>
   <div class="nav-dot" data-section="demo"><span class="nav-label">Conversational AI</span></div>
+  <div class="nav-dot" data-section="integrationhub"><span class="nav-label">Integration Hub</span></div>
   <div class="nav-dot" data-section="governance"><span class="nav-label">Governance</span></div>
   <div class="nav-dot" data-section="dataarch"><span class="nav-label">Data Architecture</span></div>
+  <div class="nav-dot" data-section="landscape"><span class="nav-label">Product Landscape</span></div>
+  <div class="nav-dot" data-section="activation"><span class="nav-label">Activation</span></div>
   <div class="nav-dot" data-section="commercial"><span class="nav-label">Commercial</span></div>
   <div class="nav-dot" data-section="nextsteps"><span class="nav-label">Next Steps</span></div>
 </nav>
@@ -1784,7 +1946,104 @@ section {
 </section>
 
 <!-- ============================== -->
-<!-- SECTION 2: AT SCALE            -->
+<!-- SECTION: AGENDA                -->
+<!-- ============================== -->
+<section id="agenda" style="background: var(--surface-bg);">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Today's Agenda</div>
+      <div class="section-title">What We'll <strong>Cover</strong></div>
+    </div>
+
+    <div class="agenda-list reveal reveal-delay-1" style="margin-top: 36px;">
+
+      <!-- Item 1 -->
+      <div class="agenda-item">
+        <div class="agenda-num" style="background: var(--primary-5);">1</div>
+        <div class="agenda-content">
+          <div class="agenda-title">Case Studies &mdash; Proven at Scale</div>
+        </div>
+        <div class="agenda-tag">Credibility</div>
+      </div>
+
+      <!-- Item 2 — Demo block with sub-items -->
+      <div class="agenda-item agenda-item-demo">
+        <div class="agenda-num" style="background: var(--deep-blue);">2</div>
+        <div class="agenda-content">
+          <div class="agenda-title">Live Demos</div>
+          <div class="agenda-sub-items">
+            <div class="agenda-sub-item">
+              <div class="agenda-sub-marker demo1"></div>
+              <div class="agenda-sub-content">
+                <div class="agenda-sub-title">Demo 1: Journey Building</div>
+              </div>
+            </div>
+            <div class="agenda-sub-item">
+              <div class="agenda-sub-marker demo2"></div>
+              <div class="agenda-sub-content">
+                <div class="agenda-sub-title">Demo 2: Conversational AI &rarr; Action</div>
+              </div>
+            </div>
+            <div class="agenda-sub-item">
+              <div class="agenda-sub-marker demo3"></div>
+              <div class="agenda-sub-content">
+                <div class="agenda-sub-title">Demo 3: Integration Hub</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="agenda-tag" style="align-self: flex-start;">Demos</div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="agenda-item">
+        <div class="agenda-num" style="background: var(--amber);">3</div>
+        <div class="agenda-content">
+          <div class="agenda-title">Governance &amp; Data Architecture</div>
+        </div>
+        <div class="agenda-tag">Trust</div>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="agenda-item">
+        <div class="agenda-num" style="background: var(--brand-purple);">4</div>
+        <div class="agenda-content">
+          <div class="agenda-title">TD AI Product Landscape</div>
+        </div>
+        <div class="agenda-tag">Platform</div>
+      </div>
+
+      <!-- Item 5 -->
+      <div class="agenda-item">
+        <div class="agenda-num" style="background: var(--success-6);">5</div>
+        <div class="agenda-content">
+          <div class="agenda-title">Activation &amp; Delivery Channels</div>
+        </div>
+        <div class="agenda-tag">Preview</div>
+      </div>
+
+      <!-- Item 6 -->
+      <div class="agenda-item">
+        <div class="agenda-num" style="background: var(--peach);">6</div>
+        <div class="agenda-content">
+          <div class="agenda-title">Forecast-Friendly Pricing</div>
+        </div>
+        <div class="agenda-tag">Commercial</div>
+      </div>
+
+      <!-- Item 7 -->
+      <div class="agenda-item" style="border-bottom: none;">
+        <div class="agenda-num" style="background: var(--neutral-9);">7</div>
+        <div class="agenda-content">
+          <div class="agenda-title">Next Steps</div>
+        </div>
+        <div class="agenda-tag">Action</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ============================== -->
 <section id="scale">
   <div class="section-inner">
@@ -1794,127 +2053,67 @@ section {
     </div>
 
     <div class="grid-4 reveal reveal-delay-1" style="margin-top: 36px;">
-      <div class="ref-card ref-card-expandable" style="border-top: 3px solid var(--primary-5);" onclick="toggleCaseStudy(this)">
-        <div class="ref-card-front">
-          <div class="ref-card-name">SMBC</div>
-          <div class="ref-card-stat"><strong>15M+</strong> app users</div>
-          <div class="ref-card-stat"><strong>100+</strong> journeys in production</div>
-          <div class="ref-card-expand-hint">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
-            View case study
-          </div>
-        </div>
-        <div class="ref-card-details">
-          <div class="ref-card-name">SMBC</div>
-          <div class="ref-card-detail-section">
-            <div class="ref-card-detail-label">Challenge</div>
-            <div class="ref-card-detail-text">Japan's second-largest bank needed to unify siloed customer data across retail banking, credit cards, and securities to deliver personalized experiences at scale.</div>
-          </div>
-          <div class="ref-card-detail-section">
-            <div class="ref-card-detail-label">Solution</div>
-            <div class="ref-card-detail-text">Deployed Treasure Data CDP to unify 15M+ app users into a single customer view, powering 100+ automated journeys across channels.</div>
-          </div>
-          <div class="ref-card-detail-section">
-            <div class="ref-card-detail-label">Results</div>
-            <div class="ref-card-detail-text"><strong>3x</strong> increase in campaign response rates. <strong>40%</strong> reduction in time-to-segment. Real-time triggers for life-event offers.</div>
-          </div>
-          <div class="ref-card-expand-hint">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
-            Close
-          </div>
+      <div class="ref-card ref-card-clickable" data-case="smbc" style="border-top: 3px solid var(--primary-5);" onclick="openDrawer(this, 'smbc')">
+        <div class="ref-card-name">SMBC</div>
+        <div class="ref-card-stat"><strong>15M+</strong> app users</div>
+        <div class="ref-card-stat"><strong>100+</strong> journeys in production</div>
+        <div class="ref-card-expand-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+          View case study
         </div>
       </div>
 
-      <div class="ref-card ref-card-expandable" style="border-top: 3px solid var(--brand-purple);" onclick="toggleCaseStudy(this)">
-        <div class="ref-card-front">
-          <div class="ref-card-name">Credit Saison</div>
-          <div class="ref-card-stat"><strong>27M</strong> unified profiles</div>
-          <div class="ref-card-stat"><strong>5T</strong> data points</div>
-          <div class="ref-card-stat">Segmentation: <strong>7d &rarr; 1d</strong></div>
-          <div class="ref-card-expand-hint">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
-            View case study
-          </div>
-        </div>
-        <div class="ref-card-details">
-          <div class="ref-card-name">Credit Saison</div>
-          <div class="ref-card-detail-section">
-            <div class="ref-card-detail-label">Challenge</div>
-            <div class="ref-card-detail-text">Japan's largest credit card issuer needed to consolidate 5 trillion data points across payment, loyalty, and financial services into actionable segments — previous segmentation took 7 days.</div>
-          </div>
-          <div class="ref-card-detail-section">
-            <div class="ref-card-detail-label">Solution</div>
-            <div class="ref-card-detail-text">Built a unified customer graph of 27M profiles with real-time scoring and ML-powered propensity models running natively on Treasure Data.</div>
-          </div>
-          <div class="ref-card-detail-section">
-            <div class="ref-card-detail-label">Results</div>
-            <div class="ref-card-detail-text">Segmentation reduced from <strong>7 days to 1 day</strong>. <strong>2.5x</strong> uplift in cross-sell conversion. Enterprise-wide single source of truth.</div>
-          </div>
-          <div class="ref-card-expand-hint">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
-            Close
-          </div>
+      <div class="ref-card ref-card-clickable" data-case="creditsaison" style="border-top: 3px solid var(--brand-purple);" onclick="openDrawer(this, 'creditsaison')">
+        <div class="ref-card-name">Credit Saison</div>
+        <div class="ref-card-stat"><strong>27M</strong> unified profiles</div>
+        <div class="ref-card-stat"><strong>5T</strong> data points</div>
+        <div class="ref-card-stat">Segmentation: <strong>7d &rarr; 1d</strong></div>
+        <div class="ref-card-expand-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+          View case study
         </div>
       </div>
 
-      <div class="ref-card ref-card-expandable" style="border-top: 3px solid var(--success-6);" onclick="toggleCaseStudy(this)">
-        <div class="ref-card-front">
-          <div class="ref-card-name">Extraco Banks</div>
-          <div class="ref-card-stat"><strong>$16M+</strong> marketing ROI</div>
-          <div class="ref-card-stat"><strong>47%</strong> conversion lift</div>
-          <div class="ref-card-expand-hint">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
-            View case study
-          </div>
-        </div>
-        <div class="ref-card-details">
-          <div class="ref-card-name">Extraco Banks</div>
-          <div class="ref-card-detail-section">
-            <div class="ref-card-detail-label">Challenge</div>
-            <div class="ref-card-detail-text">A community bank competing against national players needed to identify high-value prospects and deliver personalized offers without a large martech team.</div>
-          </div>
-          <div class="ref-card-detail-section">
-            <div class="ref-card-detail-label">Solution</div>
-            <div class="ref-card-detail-text">Used Treasure Data CDP for unified profiles, predictive scoring, and automated multi-channel activation across digital and branch channels.</div>
-          </div>
-          <div class="ref-card-detail-section">
-            <div class="ref-card-detail-label">Results</div>
-            <div class="ref-card-detail-text"><strong>$16M+</strong> in attributable marketing ROI. <strong>47%</strong> conversion lift on targeted campaigns. <strong>60%</strong> faster campaign execution.</div>
-          </div>
-          <div class="ref-card-expand-hint">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
-            Close
-          </div>
+      <div class="ref-card ref-card-clickable" data-case="extraco" style="border-top: 3px solid var(--success-6);" onclick="openDrawer(this, 'extraco')">
+        <div class="ref-card-name">Extraco Banks</div>
+        <div class="ref-card-stat"><strong>$16M+</strong> marketing ROI</div>
+        <div class="ref-card-stat"><strong>47%</strong> conversion lift</div>
+        <div class="ref-card-expand-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+          View case study
         </div>
       </div>
 
-      <div class="ref-card ref-card-expandable" style="border-top: 3px solid var(--peach);" onclick="toggleCaseStudy(this)">
-        <div class="ref-card-front">
-          <div class="ref-card-name">Take-Two</div>
-          <div class="ref-card-stat"><strong>600K</strong> events/sec</div>
-          <div class="ref-card-stat">Gaming-scale real-time</div>
-          <div class="ref-card-expand-hint">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
-            View case study
-          </div>
+      <div class="ref-card ref-card-clickable" data-case="taketwo" style="border-top: 3px solid var(--peach);" onclick="openDrawer(this, 'taketwo')">
+        <div class="ref-card-name">Take-Two</div>
+        <div class="ref-card-stat"><strong>600K</strong> events/sec</div>
+        <div class="ref-card-stat">Gaming-scale real-time</div>
+        <div class="ref-card-expand-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+          View case study
         </div>
-        <div class="ref-card-details">
-          <div class="ref-card-name">Take-Two Interactive</div>
-          <div class="ref-card-detail-section">
+      </div>
+    </div>
+
+    <!-- Drawer panel (sits below the grid, slides open) -->
+    <div class="case-drawer" id="caseDrawer">
+      <div class="case-drawer-inner">
+        <button class="case-drawer-close" onclick="closeDrawer()" aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <div class="case-drawer-name" id="drawerName"></div>
+        <div class="case-drawer-columns">
+          <div class="case-drawer-col">
             <div class="ref-card-detail-label">Challenge</div>
-            <div class="ref-card-detail-text">Publisher of GTA and NBA 2K needed to process massive real-time player telemetry — 600K events per second — to drive in-game personalization and engagement.</div>
+            <div class="ref-card-detail-text" id="drawerChallenge"></div>
           </div>
-          <div class="ref-card-detail-section">
+          <div class="case-drawer-col">
             <div class="ref-card-detail-label">Solution</div>
-            <div class="ref-card-detail-text">Treasure Data ingests and unifies player behavior at gaming scale, enabling real-time segmentation and activation for live-ops campaigns.</div>
+            <div class="ref-card-detail-text" id="drawerSolution"></div>
           </div>
-          <div class="ref-card-detail-section">
+          <div class="case-drawer-col">
             <div class="ref-card-detail-label">Results</div>
-            <div class="ref-card-detail-text"><strong>600K</strong> events/sec sustained throughput. Real-time player segments for live events. Unified cross-title player profiles across franchises.</div>
-          </div>
-          <div class="ref-card-expand-hint">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
-            Close
+            <div class="ref-card-detail-text" id="drawerResults"></div>
           </div>
         </div>
       </div>
@@ -1922,232 +2121,6 @@ section {
   </div>
 </section>
 
-<!-- ============================== -->
-<!-- SECTION 3: TD AI PRODUCT       -->
-<!-- LANDSCAPE (NEW)                -->
-<!-- ============================== -->
-<section id="landscape" style="background: var(--surface-bg);">
-  <div class="section-inner">
-    <div class="reveal">
-      <div class="section-label">TD AI Product Landscape</div>
-      <div class="section-title">Same Platform, Same Data, <strong>Three Interfaces</strong></div>
-      <p class="section-subtitle">
-        Choose the interface that fits your workflow &mdash; every surface connects to the same unified data layer and activation engine.
-      </p>
-    </div>
-
-    <div class="landscape-cards reveal reveal-delay-1">
-      <div class="landscape-card studio">
-        <div class="landscape-card-icon" style="background: var(--primary-0);">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary-5)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-        </div>
-        <div class="landscape-card-badge" style="background: var(--primary-0); color: var(--primary-5);">Desktop</div>
-        <div class="landscape-card-desc">
-          AI co-pilot for power users. Natural-language journey and segment creation, drag-and-drop orchestration, and inline analytics &mdash; all from your desktop.
-        </div>
-      </div>
-
-      <div class="landscape-card console">
-        <div class="landscape-card-icon" style="background: #f3f0ff;">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand-purple)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-        </div>
-        <div class="landscape-card-badge" style="background: #f3f0ff; color: var(--brand-purple);">Web</div>
-        <div class="landscape-card-desc">
-          Full CDP platform in the browser. Journey Builder, Segment Builder, Integration Hub, governance controls, and reporting &mdash; the complete operational cockpit.
-        </div>
-      </div>
-
-      <div class="landscape-card mobile">
-        <div class="landscape-card-icon" style="background: #ecfdf5;">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--success-6)" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
-        </div>
-        <div class="landscape-card-badge" style="background: #ecfdf5; color: var(--success-6);">Mobile</div>
-        <div class="landscape-card-desc">
-          On-the-go monitoring, approvals, and alerts. Review journey performance, approve human-in-the-loop actions, and get notified on critical events &mdash; from anywhere.
-        </div>
-      </div>
-    </div>
-
-    <div class="insight-callout reveal reveal-delay-2">
-      <div class="insight-callout-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary-5)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-      </div>
-      <div class="insight-callout-content">
-        <div class="insight-callout-title">One platform, unified data</div>
-        <div class="insight-callout-desc">
-          Same platform, same data, three interfaces &mdash; choose the one that fits your workflow.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================== -->
-<!-- SECTION 4: ACTIVATION          -->
-<!-- ============================== -->
-<section id="activation">
-  <div class="section-inner">
-    <div class="reveal">
-      <div class="section-label">Activation</div>
-      <div class="section-title"><strong>Connected Channels</strong> &mdash; Digital, Physical, and Third-Party</div>
-    </div>
-
-    <div class="grid-3 reveal reveal-delay-1" style="margin-top: 36px;">
-      <div class="channel-card">
-        <div class="channel-card-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary-5)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-          Engagement
-        </div>
-        <div class="channel-item"><div class="channel-dot" style="background: var(--primary-5);"></div> Email (Engage)</div>
-        <div class="channel-item"><div class="channel-dot" style="background: var(--brand-purple);"></div> Push Notifications</div>
-        <div class="channel-item"><div class="channel-dot" style="background: var(--sky-blue);"></div> SMS</div>
-        <div class="channel-item"><div class="channel-dot" style="background: var(--amethyst);"></div> In-App Messages</div>
-        <div class="channel-item"><div class="channel-dot" style="background: var(--sapphire);"></div> Web Personalization</div>
-      </div>
-
-      <div class="channel-card">
-        <div class="channel-card-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--success-6)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          Physical
-        </div>
-        <div class="channel-item"><div class="channel-dot" style="background: var(--success-6);"></div> Frontline Terminal</div>
-        <div class="channel-item"><div class="channel-dot" style="background: var(--emerald);"></div> Branch Manager</div>
-        <div class="channel-item"><div class="channel-dot" style="background: #10b981;"></div> Outbound Call</div>
-        <div class="channel-item"><div class="channel-dot" style="background: #34d399;"></div> Direct Mail</div>
-      </div>
-
-      <div class="channel-card">
-        <div class="channel-card-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-          Integrations
-        </div>
-        <div class="channel-item"><div class="channel-dot" style="background: var(--amber);"></div> Salesforce</div>
-        <div class="channel-item"><div class="channel-dot" style="background: var(--sunstone);"></div> Google Ads</div>
-        <div class="channel-item"><div class="channel-dot" style="background: var(--peach);"></div> Meta</div>
-        <div class="channel-item"><div class="channel-dot" style="background: var(--morganite);"></div> 200+ connectors</div>
-      </div>
-    </div>
-
-    <div class="hub-mention reveal reveal-delay-2">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-5)" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-      Integration Hub &mdash; Live in Console with 200+ pre-built connectors
-    </div>
-  </div>
-</section>
-
-<!-- ============================== -->
-<!-- SECTION 5: INTEGRATION HUB     -->
-<!-- ============================== -->
-<section id="integrationhub" style="background: var(--surface-bg);">
-  <div class="section-inner">
-    <div class="reveal">
-      <div class="section-label">Integration Hub <span class="live-demo-badge">Live Demo</span></div>
-      <div class="section-title"><strong>200+ Pre-Built Connectors</strong> &mdash; No Custom Integration Needed</div>
-      <p class="section-subtitle">
-        Every activation in the demos you just saw runs through these connectors &mdash; pre-built, maintained, and ready to deploy.
-      </p>
-    </div>
-
-    <div class="connector-grid reveal reveal-delay-1">
-      <div class="connector-category">
-        <div class="connector-category-title">
-          <div class="connector-category-icon" style="background: var(--primary-0);">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary-5)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          </div>
-          CRM
-        </div>
-        <div class="connector-list">
-          <span class="connector-tag">Salesforce</span>
-          <span class="connector-tag">HubSpot</span>
-        </div>
-      </div>
-
-      <div class="connector-category">
-        <div class="connector-category-title">
-          <div class="connector-category-icon" style="background: #f3f0ff;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--brand-purple)" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-          </div>
-          Advertising
-        </div>
-        <div class="connector-list">
-          <span class="connector-tag">Google Ads</span>
-          <span class="connector-tag">Meta</span>
-          <span class="connector-tag">TikTok</span>
-        </div>
-      </div>
-
-      <div class="connector-category">
-        <div class="connector-category-title">
-          <div class="connector-category-icon" style="background: #ecfdf5;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success-6)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          </div>
-          Email
-        </div>
-        <div class="connector-list">
-          <span class="connector-tag">SFMC</span>
-          <span class="connector-tag">Braze</span>
-          <span class="connector-tag">SendGrid</span>
-        </div>
-      </div>
-
-      <div class="connector-category">
-        <div class="connector-category-title">
-          <div class="connector-category-icon" style="background: #fef3c7;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-          </div>
-          Data
-        </div>
-        <div class="connector-list">
-          <span class="connector-tag">Snowflake</span>
-          <span class="connector-tag">BigQuery</span>
-          <span class="connector-tag">S3</span>
-        </div>
-      </div>
-
-      <div class="connector-category">
-        <div class="connector-category-title">
-          <div class="connector-category-icon" style="background: #fce7f3;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#be185d" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-          </div>
-          Messaging
-        </div>
-        <div class="connector-list">
-          <span class="connector-tag">Twilio</span>
-          <span class="connector-tag">WhatsApp</span>
-        </div>
-      </div>
-
-      <div class="connector-category">
-        <div class="connector-category-title">
-          <div class="connector-category-icon" style="background: var(--neutral-1);">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--neutral-8)" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-          </div>
-          Custom
-        </div>
-        <div class="connector-list">
-          <span class="connector-tag">Webhook</span>
-          <span class="connector-tag">REST API</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="insight-callout reveal reveal-delay-2">
-      <div class="insight-callout-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary-5)" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-      </div>
-      <div class="insight-callout-content">
-        <div class="insight-callout-title">Zero custom integration work</div>
-        <div class="insight-callout-desc">
-          Every activation in the demos you just saw runs through these connectors &mdash; 200+ pre-built, no custom integration needed.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================== -->
-<!-- SECTION 6: JOURNEY ORCH        -->
-<!-- (Demo 1)                       -->
 <!-- ============================== -->
 <section id="journey">
   <div class="section-inner">
@@ -2201,9 +2174,6 @@ section {
   </div>
 </section>
 
-<!-- ============================== -->
-<!-- SECTION 6: REAL-TIME TRIGGERS  -->
-<!-- (Demo 1 continued)             -->
 <!-- ============================== -->
 <section id="realtime">
   <div class="section-inner">
@@ -2274,9 +2244,6 @@ section {
   </div>
 </section>
 
-<!-- ============================== -->
-<!-- SECTION 7: LIVE DEMO (ConvAI)  -->
-<!-- (Demo 2)                       -->
 <!-- ============================== -->
 <section id="demo" style="background: var(--surface-bg);">
   <div class="section-inner">
@@ -2393,7 +2360,113 @@ section {
 </section>
 
 <!-- ============================== -->
-<!-- SECTION 10: GOVERNANCE         -->
+<section id="integrationhub" style="background: var(--surface-bg);">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Integration Hub <span class="live-demo-badge">Live Demo</span></div>
+      <div class="section-title"><strong>200+ Pre-Built Connectors</strong> &mdash; No Custom Integration Needed</div>
+      <p class="section-subtitle">
+        Every activation in the demos you just saw runs through these connectors &mdash; pre-built, maintained, and ready to deploy.
+      </p>
+    </div>
+
+    <div class="connector-grid reveal reveal-delay-1">
+      <div class="connector-category">
+        <div class="connector-category-title">
+          <div class="connector-category-icon" style="background: var(--primary-0);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary-5)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          CRM
+        </div>
+        <div class="connector-list">
+          <span class="connector-tag">Salesforce</span>
+          <span class="connector-tag">HubSpot</span>
+        </div>
+      </div>
+
+      <div class="connector-category">
+        <div class="connector-category-title">
+          <div class="connector-category-icon" style="background: #f3f0ff;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--brand-purple)" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+          Advertising
+        </div>
+        <div class="connector-list">
+          <span class="connector-tag">Google Ads</span>
+          <span class="connector-tag">Meta</span>
+          <span class="connector-tag">TikTok</span>
+        </div>
+      </div>
+
+      <div class="connector-category">
+        <div class="connector-category-title">
+          <div class="connector-category-icon" style="background: #ecfdf5;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success-6)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          Email
+        </div>
+        <div class="connector-list">
+          <span class="connector-tag">SFMC</span>
+          <span class="connector-tag">Braze</span>
+          <span class="connector-tag">SendGrid</span>
+        </div>
+      </div>
+
+      <div class="connector-category">
+        <div class="connector-category-title">
+          <div class="connector-category-icon" style="background: #fef3c7;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          Data
+        </div>
+        <div class="connector-list">
+          <span class="connector-tag">Snowflake</span>
+          <span class="connector-tag">BigQuery</span>
+          <span class="connector-tag">S3</span>
+        </div>
+      </div>
+
+      <div class="connector-category">
+        <div class="connector-category-title">
+          <div class="connector-category-icon" style="background: #fce7f3;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#be185d" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
+          Messaging
+        </div>
+        <div class="connector-list">
+          <span class="connector-tag">Twilio</span>
+          <span class="connector-tag">WhatsApp</span>
+        </div>
+      </div>
+
+      <div class="connector-category">
+        <div class="connector-category-title">
+          <div class="connector-category-icon" style="background: var(--neutral-1);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--neutral-8)" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+          </div>
+          Custom
+        </div>
+        <div class="connector-list">
+          <span class="connector-tag">Webhook</span>
+          <span class="connector-tag">REST API</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-callout reveal reveal-delay-2">
+      <div class="insight-callout-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary-5)" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+      </div>
+      <div class="insight-callout-content">
+        <div class="insight-callout-title">Zero custom integration work</div>
+        <div class="insight-callout-desc">
+          Every activation in the demos you just saw runs through these connectors &mdash; 200+ pre-built, no custom integration needed.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============================== -->
 <section id="governance">
   <div class="section-inner">
@@ -2475,8 +2548,6 @@ section {
   </div>
 </section>
 
-<!-- ============================== -->
-<!-- SECTION 11: DATA ARCHITECTURE  -->
 <!-- ============================== -->
 <section id="dataarch" style="background: var(--surface-bg);">
   <div class="section-inner">
@@ -2579,7 +2650,113 @@ section {
 </section>
 
 <!-- ============================== -->
-<!-- SECTION 12: COMMERCIAL MODEL   -->
+<section id="landscape" style="background: var(--surface-bg);">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">TD AI Product Landscape</div>
+      <div class="section-title">Same Platform, Same Data, <strong>Three Interfaces</strong></div>
+      <p class="section-subtitle">
+        Choose the interface that fits your workflow &mdash; every surface connects to the same unified data layer and activation engine.
+      </p>
+    </div>
+
+    <div class="landscape-cards reveal reveal-delay-1">
+      <div class="landscape-card studio">
+        <div class="landscape-card-icon" style="background: var(--primary-0);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary-5)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="landscape-card-badge" style="background: var(--primary-0); color: var(--primary-5);">Desktop</div>
+        <div class="landscape-card-desc">
+          AI co-pilot for power users. Natural-language journey and segment creation, drag-and-drop orchestration, and inline analytics &mdash; all from your desktop.
+        </div>
+      </div>
+
+      <div class="landscape-card console">
+        <div class="landscape-card-icon" style="background: #f3f0ff;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand-purple)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div class="landscape-card-badge" style="background: #f3f0ff; color: var(--brand-purple);">Web</div>
+        <div class="landscape-card-desc">
+          Full CDP platform in the browser. Journey Builder, Segment Builder, Integration Hub, governance controls, and reporting &mdash; the complete operational cockpit.
+        </div>
+      </div>
+
+      <div class="landscape-card mobile">
+        <div class="landscape-card-icon" style="background: #ecfdf5;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--success-6)" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+        </div>
+        <div class="landscape-card-badge" style="background: #ecfdf5; color: var(--success-6);">Mobile</div>
+        <div class="landscape-card-desc">
+          On-the-go monitoring, approvals, and alerts. Review journey performance, approve human-in-the-loop actions, and get notified on critical events &mdash; from anywhere.
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-callout reveal reveal-delay-2">
+      <div class="insight-callout-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary-5)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="insight-callout-content">
+        <div class="insight-callout-title">One platform, unified data</div>
+        <div class="insight-callout-desc">
+          Same platform, same data, three interfaces &mdash; choose the one that fits your workflow.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== -->
+<section id="activation">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Activation</div>
+      <div class="section-title"><strong>Connected Channels</strong> &mdash; Digital, Physical, and Third-Party</div>
+    </div>
+
+    <div class="grid-3 reveal reveal-delay-1" style="margin-top: 36px;">
+      <div class="channel-card">
+        <div class="channel-card-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary-5)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Engagement
+        </div>
+        <div class="channel-item"><div class="channel-dot" style="background: var(--primary-5);"></div> Email (Engage)</div>
+        <div class="channel-item"><div class="channel-dot" style="background: var(--brand-purple);"></div> Push Notifications</div>
+        <div class="channel-item"><div class="channel-dot" style="background: var(--sky-blue);"></div> SMS</div>
+        <div class="channel-item"><div class="channel-dot" style="background: var(--amethyst);"></div> In-App Messages</div>
+        <div class="channel-item"><div class="channel-dot" style="background: var(--sapphire);"></div> Web Personalization</div>
+      </div>
+
+      <div class="channel-card">
+        <div class="channel-card-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--success-6)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Physical
+        </div>
+        <div class="channel-item"><div class="channel-dot" style="background: var(--success-6);"></div> Frontline Terminal</div>
+        <div class="channel-item"><div class="channel-dot" style="background: var(--emerald);"></div> Branch Manager</div>
+        <div class="channel-item"><div class="channel-dot" style="background: #10b981;"></div> Outbound Call</div>
+        <div class="channel-item"><div class="channel-dot" style="background: #34d399;"></div> Direct Mail</div>
+      </div>
+
+      <div class="channel-card">
+        <div class="channel-card-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+          Integrations
+        </div>
+        <div class="channel-item"><div class="channel-dot" style="background: var(--amber);"></div> Salesforce</div>
+        <div class="channel-item"><div class="channel-dot" style="background: var(--sunstone);"></div> Google Ads</div>
+        <div class="channel-item"><div class="channel-dot" style="background: var(--peach);"></div> Meta</div>
+        <div class="channel-item"><div class="channel-dot" style="background: var(--morganite);"></div> 200+ connectors</div>
+      </div>
+    </div>
+
+    <div class="hub-mention reveal reveal-delay-2">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-5)" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+      Integration Hub &mdash; Live in Console with 200+ pre-built connectors
+    </div>
+  </div>
+</section>
+
 <!-- ============================== -->
 <section id="commercial">
   <div class="section-inner">
@@ -2622,8 +2799,6 @@ section {
   </div>
 </section>
 
-<!-- ============================== -->
-<!-- SECTION 13: NEXT STEPS         -->
 <!-- ============================== -->
 <section class="closing" id="nextsteps">
   <div class="section-inner" style="max-width: 900px; margin: 0 auto;">
@@ -2683,15 +2858,16 @@ const progressBar = document.getElementById('progressBar');
 
 const sectionNames = {
   cover: 'Cover',
+  agenda: 'Agenda',
   scale: 'At Scale',
-  landscape: 'Product Landscape',
-  activation: 'Activation Channels',
-  integrationhub: 'Integration Hub',
   journey: 'Journey Orchestration',
   realtime: 'Real-Time Triggers',
   demo: 'Conversational AI',
+  integrationhub: 'Integration Hub',
   governance: 'Governance',
   dataarch: 'Data Architecture',
+  landscape: 'Product Landscape',
+  activation: 'Activation Channels',
   commercial: 'Commercial Model',
   nextsteps: 'Next Steps'
 };
@@ -2783,17 +2959,67 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-// ===== Case study card expand/collapse =====
-function toggleCaseStudy(card) {
-  const wasExpanded = card.classList.contains('expanded');
-  // Close all expanded cards first
-  document.querySelectorAll('.ref-card-expandable.expanded').forEach(c => {
-    c.classList.remove('expanded');
-  });
-  // Toggle the clicked card (unless it was already open)
-  if (!wasExpanded) {
-    card.classList.add('expanded');
+// ===== Case study drawer =====
+const caseData = {
+  smbc: {
+    name: 'SMBC',
+    challenge: 'Japan\'s second-largest bank needed to unify siloed customer data across retail banking, credit cards, and securities to deliver personalized experiences at scale.',
+    solution: 'Deployed Treasure Data CDP to unify 15M+ app users into a single customer view, powering 100+ automated journeys across channels.',
+    results: '<strong>3x</strong> increase in campaign response rates. <strong>40%</strong> reduction in time-to-segment. Real-time triggers for life-event offers.'
+  },
+  creditsaison: {
+    name: 'Credit Saison',
+    challenge: 'Japan\'s largest credit card issuer needed to consolidate 5 trillion data points across payment, loyalty, and financial services into actionable segments \u2014 previous segmentation took 7 days.',
+    solution: 'Built a unified customer graph of 27M profiles with real-time scoring and ML-powered propensity models running natively on Treasure Data.',
+    results: 'Segmentation reduced from <strong>7 days to 1 day</strong>. <strong>2.5x</strong> uplift in cross-sell conversion. Enterprise-wide single source of truth.'
+  },
+  extraco: {
+    name: 'Extraco Banks',
+    challenge: 'A community bank competing against national players needed to identify high-value prospects and deliver personalized offers without a large martech team.',
+    solution: 'Used Treasure Data CDP for unified profiles, predictive scoring, and automated multi-channel activation across digital and branch channels.',
+    results: '<strong>$16M+</strong> in attributable marketing ROI. <strong>47%</strong> conversion lift on targeted campaigns. <strong>60%</strong> faster campaign execution.'
+  },
+  taketwo: {
+    name: 'Take-Two Interactive',
+    challenge: 'Publisher of GTA and NBA 2K needed to process massive real-time player telemetry \u2014 600K events per second \u2014 to drive in-game personalization and engagement.',
+    solution: 'Treasure Data ingests and unifies player behavior at gaming scale, enabling real-time segmentation and activation for live-ops campaigns.',
+    results: '<strong>600K</strong> events/sec sustained throughput. Real-time player segments for live events. Unified cross-title player profiles across franchises.'
   }
+};
+
+let activeCase = null;
+
+function openDrawer(card, caseId) {
+  const drawer = document.getElementById('caseDrawer');
+
+  // If clicking the same card, close
+  if (activeCase === caseId) {
+    closeDrawer();
+    return;
+  }
+
+  // Deselect all cards
+  document.querySelectorAll('.ref-card-clickable').forEach(c => c.classList.remove('selected'));
+
+  // Select clicked card
+  card.classList.add('selected');
+  activeCase = caseId;
+
+  // Populate drawer
+  const data = caseData[caseId];
+  document.getElementById('drawerName').textContent = data.name;
+  document.getElementById('drawerChallenge').innerHTML = data.challenge;
+  document.getElementById('drawerSolution').innerHTML = data.solution;
+  document.getElementById('drawerResults').innerHTML = data.results;
+
+  // Open drawer
+  drawer.classList.add('open');
+}
+
+function closeDrawer() {
+  document.getElementById('caseDrawer').classList.remove('open');
+  document.querySelectorAll('.ref-card-clickable').forEach(c => c.classList.remove('selected'));
+  activeCase = null;
 }
 </script>
 
