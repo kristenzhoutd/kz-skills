@@ -486,6 +486,32 @@ section {
   line-height: 1.6;
 }
 
+.live-demo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: 100px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  font-size: 10px;
+  font-weight: 700;
+  color: #dc2626;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-left: 12px;
+  vertical-align: middle;
+}
+
+.live-demo-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #dc2626;
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
 .stage-bullets {
   list-style: none;
   margin: 0;
@@ -1709,7 +1735,7 @@ section {
   <div class="nav-dot" data-section="integrationhub"><span class="nav-label">Integration Hub</span></div>
   <div class="nav-dot" data-section="journey"><span class="nav-label">Journey Orchestration</span></div>
   <div class="nav-dot" data-section="realtime"><span class="nav-label">Real-Time</span></div>
-  <div class="nav-dot" data-section="demo"><span class="nav-label">Live Demo</span></div>
+  <div class="nav-dot" data-section="demo"><span class="nav-label">Conversational AI</span></div>
   <div class="nav-dot" data-section="governance"><span class="nav-label">Governance</span></div>
   <div class="nav-dot" data-section="dataarch"><span class="nav-label">Data Architecture</span></div>
   <div class="nav-dot" data-section="commercial"><span class="nav-label">Commercial</span></div>
@@ -2015,7 +2041,7 @@ section {
 <section id="integrationhub" style="background: var(--surface-bg);">
   <div class="section-inner">
     <div class="reveal">
-      <div class="section-label">Integration Hub</div>
+      <div class="section-label">Integration Hub <span class="live-demo-badge">Live Demo</span></div>
       <div class="section-title"><strong>200+ Pre-Built Connectors</strong> &mdash; No Custom Integration Needed</div>
       <p class="section-subtitle">
         Every activation in the demos you just saw runs through these connectors &mdash; pre-built, maintained, and ready to deploy.
@@ -2126,7 +2152,7 @@ section {
 <section id="journey">
   <div class="section-inner">
     <div class="reveal">
-      <div class="section-label">Journey Orchestration</div>
+      <div class="section-label">Journey Orchestration <span class="live-demo-badge">Live Demo</span></div>
       <div class="section-title"><strong>Risk-Tiered Outreach</strong> with Human-in-the-Loop</div>
     </div>
 
@@ -2255,7 +2281,7 @@ section {
 <section id="demo" style="background: var(--surface-bg);">
   <div class="section-inner">
     <div class="reveal">
-      <div class="section-label">Live Demo</div>
+      <div class="section-label">Conversational AI <span class="live-demo-badge">Live Demo</span></div>
       <div class="section-title"><strong>Conversational AI</strong> &mdash; One Prompt to Personalized Action</div>
     </div>
 
@@ -2372,7 +2398,7 @@ section {
 <section id="governance">
   <div class="section-inner">
     <div class="reveal">
-      <div class="section-label">Governance</div>
+      <div class="section-label">Governance <span class="live-demo-badge">Live Demo</span></div>
       <div class="section-title"><strong>Department-Level Isolation</strong> Enforced at the API Layer</div>
     </div>
 
@@ -2663,7 +2689,7 @@ const sectionNames = {
   integrationhub: 'Integration Hub',
   journey: 'Journey Orchestration',
   realtime: 'Real-Time Triggers',
-  demo: 'Live Demo',
+  demo: 'Conversational AI',
   governance: 'Governance',
   dataarch: 'Data Architecture',
   commercial: 'Commercial Model',
