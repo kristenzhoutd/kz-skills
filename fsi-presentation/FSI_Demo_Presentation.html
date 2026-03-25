@@ -504,7 +504,6 @@ section {
 .transcript-card {
   background: #1a1d2e;
   border-radius: var(--radius-2xl);
-  padding: 24px 28px;
   color: rgba(255,255,255,0.85);
   font-size: 13px;
   line-height: 1.7;
@@ -514,31 +513,100 @@ section {
   overflow: hidden;
 }
 
-.transcript-card::before {
-  content: 'CALL TRANSCRIPT';
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  font-size: 9px;
+.transcript-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  background: rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.transcript-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.transcript-header-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(253,184,147,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.transcript-header-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.transcript-header-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+}
+
+.transcript-header-meta {
+  font-size: 10px;
+  color: rgba(255,255,255,0.35);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.transcript-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.transcript-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.25);
+  color: #ef4444;
   text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.transcript-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ef4444;
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+.transcript-duration {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+  font-variant-numeric: tabular-nums;
+}
+
+.transcript-body {
+  padding: 20px 24px 24px;
 }
 
 .transcript-line {
-  margin-bottom: 10px;
-  padding-left: 16px;
+  margin-bottom: 14px;
+  padding-left: 20px;
   position: relative;
 }
+
+.transcript-line:last-child { margin-bottom: 0; }
 
 .transcript-line::before {
   content: '';
   position: absolute;
   left: 0;
   top: 6px;
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
 }
 
@@ -550,7 +618,7 @@ section {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 
 .transcript-line.agent .transcript-speaker { color: var(--sky-blue); }
@@ -1512,11 +1580,10 @@ section {
   <div class="nav-dot" data-section="scale"><span class="nav-label">At Scale</span></div>
   <div class="nav-dot" data-section="landscape"><span class="nav-label">Product Landscape</span></div>
   <div class="nav-dot" data-section="activation"><span class="nav-label">Activation</span></div>
+  <div class="nav-dot" data-section="integrationhub"><span class="nav-label">Integration Hub</span></div>
   <div class="nav-dot" data-section="journey"><span class="nav-label">Journey Orchestration</span></div>
   <div class="nav-dot" data-section="realtime"><span class="nav-label">Real-Time</span></div>
   <div class="nav-dot" data-section="demo"><span class="nav-label">Live Demo</span></div>
-  <div class="nav-dot" data-section="pipeline"><span class="nav-label">How It Works</span></div>
-  <div class="nav-dot" data-section="integrationhub"><span class="nav-label">Integration Hub</span></div>
   <div class="nav-dot" data-section="governance"><span class="nav-label">Governance</span></div>
   <div class="nav-dot" data-section="dataarch"><span class="nav-label">Data Architecture</span></div>
   <div class="nav-dot" data-section="commercial"><span class="nav-label">Commercial</span></div>
@@ -1714,252 +1781,7 @@ section {
 </section>
 
 <!-- ============================== -->
-<!-- SECTION 5: JOURNEY ORCH        -->
-<!-- (Demo 1)                       -->
-<!-- ============================== -->
-<section id="journey" style="background: var(--surface-bg);">
-  <div class="section-inner">
-    <div class="reveal">
-      <div class="section-label">Journey Orchestration</div>
-      <div class="section-title"><strong>Risk-Tiered Outreach</strong> with Human-in-the-Loop</div>
-    </div>
-
-    <div class="journey-flow reveal reveal-delay-1">
-      <div class="journey-stage-label">Stage 1 &mdash; Assessment</div>
-      <div class="journey-nodes">
-        <div class="journey-node rule">Entry Trigger</div>
-        <span class="journey-arrow">&rarr;</span>
-        <div class="journey-node ai">Credit Risk Assessment</div>
-        <span class="journey-arrow">&rarr;</span>
-        <div class="journey-branch">
-          <div class="journey-node activation">Pre-Approved</div>
-          <div class="journey-node human">Needs Review</div>
-          <div class="journey-node rule">Not Eligible</div>
-        </div>
-      </div>
-
-      <div class="journey-stage-label">Stage 2 &mdash; Engagement &amp; Decisioning</div>
-      <div class="journey-nodes">
-        <div class="journey-node activation">Email Engagement</div>
-        <span class="journey-arrow">&rarr;</span>
-        <div class="journey-node ai">Path Split</div>
-        <span class="journey-arrow">&rarr;</span>
-        <div class="journey-branch">
-          <div class="journey-node rule">Auto-Approve</div>
-          <div class="journey-node human">Branch Manager Review</div>
-        </div>
-        <span class="journey-arrow">&rarr;</span>
-        <div class="journey-branch">
-          <div class="journey-node activation">Approved</div>
-          <div class="journey-node rule">Rejected</div>
-        </div>
-      </div>
-
-      <div class="journey-legend">
-        <div class="legend-item"><div class="legend-dot rule"></div> Deterministic Rule</div>
-        <div class="legend-item"><div class="legend-dot ai"></div> AI Agent</div>
-        <div class="legend-item"><div class="legend-dot human"></div> Human Review</div>
-        <div class="legend-item"><div class="legend-dot activation"></div> Activation</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================== -->
-<!-- SECTION 6: REAL-TIME TRIGGERS  -->
-<!-- (Demo 1 continued)             -->
-<!-- ============================== -->
-<section id="realtime">
-  <div class="section-inner">
-    <div class="reveal">
-      <div class="section-label">Real-Time</div>
-      <div class="section-title"><strong>Instant Action</strong> When the Moment Happens</div>
-    </div>
-
-    <div class="rt-flow reveal reveal-delay-1">
-      <div class="rt-node">
-        <div class="rt-node-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary-5)" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        </div>
-        <div class="rt-node-title">Event Arrives</div>
-        <div class="rt-node-desc">Call, click, transaction, or signal enters the platform</div>
-      </div>
-      <div class="rt-arrow">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </div>
-      <div class="rt-node">
-        <div class="rt-node-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--brand-purple)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        </div>
-        <div class="rt-node-title">RT Engine Evaluates</div>
-        <div class="rt-node-desc">600+ attributes checked in real time</div>
-      </div>
-      <div class="rt-arrow">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </div>
-      <div class="rt-node">
-        <div class="rt-node-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--success-6)" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
-        </div>
-        <div class="rt-node-title">Key Event Matches</div>
-        <div class="rt-node-desc">Trigger condition met &mdash; action initiated</div>
-      </div>
-      <div class="rt-arrow">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </div>
-      <div class="rt-node">
-        <div class="rt-node-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--peach)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-        </div>
-        <div class="rt-node-title">Webhook Fires</div>
-        <div class="rt-node-desc">Branch manager terminal receives the alert</div>
-      </div>
-    </div>
-
-    <div class="grid-3 reveal reveal-delay-2" style="margin-top: 32px;">
-      <div class="metric-tile">
-        <div class="metric-value">&lt;100ms</div>
-        <div class="metric-label">Event-to-decision latency</div>
-      </div>
-      <div class="metric-tile accent-purple">
-        <div class="metric-value">600+</div>
-        <div class="metric-label">Attributes evaluated per event</div>
-      </div>
-      <div class="metric-tile accent-green">
-        <div class="metric-value">24/7</div>
-        <div class="metric-label">Always-on evaluation</div>
-      </div>
-    </div>
-
-    <div class="note-box reveal reveal-delay-3">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-      Complementary to batch journeys &mdash; RT handles the urgent moment, batch handles the nurture.
-    </div>
-  </div>
-</section>
-
-<!-- ============================== -->
-<!-- SECTION 7: LIVE DEMO (ConvAI)  -->
-<!-- (Demo 2)                       -->
-<!-- ============================== -->
-<section id="demo" style="background: var(--surface-bg);">
-  <div class="section-inner">
-    <div class="reveal">
-      <div class="section-label">Live Demo</div>
-      <div class="section-title"><strong>Conversational AI</strong> &mdash; One Prompt to Personalized Action</div>
-    </div>
-
-    <div class="reveal reveal-delay-1" style="margin-top: 32px;">
-      <div class="transcript-card">
-        <div class="transcript-line customer">
-          <div class="transcript-speaker">Monica (Customer)</div>
-          Hi, I'm calling about my mortgage. I saw rates dropped and I'm paying 6.2%. I've been a customer for 12 years and honestly I'm frustrated &mdash; I feel like new customers get better deals.
-        </div>
-        <div class="transcript-line agent">
-          <div class="transcript-speaker">Bank Agent</div>
-          I completely understand, Monica. Let me pull up your account. I can see your history with us and I want to make sure we find the right option for you today.
-        </div>
-        <div class="transcript-line customer">
-          <div class="transcript-speaker">Monica (Customer)</div>
-          I've already started looking at other banks. I need to know &mdash; can you do something about this rate or should I move my mortgage?
-        </div>
-      </div>
-    </div>
-
-    <div class="pipeline-cards reveal reveal-delay-2">
-      <div class="pipeline-card">
-        <div class="pipeline-card-step">Step 1</div>
-        <div class="pipeline-card-title">Understand</div>
-        <div class="pipeline-card-desc">Identity: Monica Chen, 12yr customer. Intent: Mortgage refinance. Urgency: High (churn risk)</div>
-      </div>
-      <div class="pipeline-card">
-        <div class="pipeline-card-step">Step 2</div>
-        <div class="pipeline-card-title">Ground</div>
-        <div class="pipeline-card-desc">Credit: 780. LTV: 62%. ML score: High retention value. Segment: Premium Loyal</div>
-      </div>
-      <div class="pipeline-card">
-        <div class="pipeline-card-step">Step 3</div>
-        <div class="pipeline-card-title">Decide</div>
-        <div class="pipeline-card-desc">ML model: Savings Account. ConvAI override: Mortgage Refinance at 4.8% + fee waiver</div>
-      </div>
-      <div class="pipeline-card">
-        <div class="pipeline-card-step">Step 4</div>
-        <div class="pipeline-card-title">Activate</div>
-        <div class="pipeline-card-desc">Frontline terminal: real-time offer. Email follow-up. Branch manager notification</div>
-      </div>
-    </div>
-
-    <div class="insight-callout reveal reveal-delay-3">
-      <div class="insight-callout-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary-5)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-      </div>
-      <div class="insight-callout-content">
-        <div class="insight-callout-title">The AI improved the decision</div>
-        <div class="insight-callout-desc">
-          The ML model recommended Savings Account. The conversation revealed Mortgage Refinance intent. The AI combined both signals to deliver the right offer at the right moment &mdash; preventing churn and deepening the relationship.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================== -->
-<!-- SECTION 8: HOW IT WORKS        -->
-<!-- ============================== -->
-<section id="pipeline">
-  <div class="section-inner">
-    <div class="reveal">
-      <div class="section-label">How It Works</div>
-      <div class="section-title"><strong>Four Steps</strong> from Conversation to Action</div>
-    </div>
-
-    <div class="reveal reveal-delay-1" style="margin-top: 36px;">
-      <div style="display: flex; align-items: flex-start; gap: 0;">
-        <div style="flex:1;">
-          <div class="stage-card">
-            <div class="stage-num">1</div>
-            <div class="stage-title">Understand</div>
-            <div class="stage-desc">Parse conversation for identity, intent, urgency</div>
-          </div>
-        </div>
-        <div class="stage-connector">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-        <div style="flex:1;">
-          <div class="stage-card">
-            <div class="stage-num" style="background: var(--brand-purple);">2</div>
-            <div class="stage-title">Ground</div>
-            <div class="stage-desc">Connect to CDP unified profile + ML scores</div>
-          </div>
-        </div>
-        <div class="stage-connector">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-        <div style="flex:1;">
-          <div class="stage-card">
-            <div class="stage-num" style="background: var(--deep-blue);">3</div>
-            <div class="stage-title">Decide</div>
-            <div class="stage-desc">Dual-layer: ML model + real-time conversation signals</div>
-          </div>
-        </div>
-        <div class="stage-connector">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-        <div style="flex:1;">
-          <div class="stage-card">
-            <div class="stage-num" style="background: var(--success-6);">4</div>
-            <div class="stage-title">Activate</div>
-            <div class="stage-desc">Route to best channel: email, push, frontline, webhook</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================== -->
-<!-- SECTION 9: INTEGRATION HUB     -->
-<!-- (NEW)                          -->
+<!-- SECTION 5: INTEGRATION HUB     -->
 <!-- ============================== -->
 <section id="integrationhub" style="background: var(--surface-bg);">
   <div class="section-inner">
@@ -2069,6 +1891,236 @@ section {
 </section>
 
 <!-- ============================== -->
+<!-- SECTION 6: JOURNEY ORCH        -->
+<!-- (Demo 1)                       -->
+<!-- ============================== -->
+<section id="journey">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Journey Orchestration</div>
+      <div class="section-title"><strong>Risk-Tiered Outreach</strong> with Human-in-the-Loop</div>
+    </div>
+
+    <div class="journey-flow reveal reveal-delay-1">
+      <div class="journey-stage-label">Stage 1 &mdash; Assessment</div>
+      <div class="journey-nodes">
+        <div class="journey-node rule">Entry Trigger</div>
+        <span class="journey-arrow">&rarr;</span>
+        <div class="journey-node ai">Credit Risk Assessment</div>
+        <span class="journey-arrow">&rarr;</span>
+        <div class="journey-branch">
+          <div class="journey-node activation">Pre-Approved</div>
+          <div class="journey-node human">Needs Review</div>
+          <div class="journey-node rule">Not Eligible</div>
+        </div>
+      </div>
+
+      <div class="journey-stage-label">Stage 2 &mdash; Engagement &amp; Decisioning</div>
+      <div class="journey-nodes">
+        <div class="journey-node activation">Email Engagement</div>
+        <span class="journey-arrow">&rarr;</span>
+        <div class="journey-node ai">Path Split</div>
+        <span class="journey-arrow">&rarr;</span>
+        <div class="journey-branch">
+          <div class="journey-node rule">Auto-Approve</div>
+          <div class="journey-node human">Branch Manager Review</div>
+        </div>
+        <span class="journey-arrow">&rarr;</span>
+        <div class="journey-branch">
+          <div class="journey-node activation">Approved</div>
+          <div class="journey-node rule">Rejected</div>
+        </div>
+      </div>
+
+      <div class="journey-legend">
+        <div class="legend-item"><div class="legend-dot rule"></div> Deterministic Rule</div>
+        <div class="legend-item"><div class="legend-dot ai"></div> AI Agent</div>
+        <div class="legend-item"><div class="legend-dot human"></div> Human Review</div>
+        <div class="legend-item"><div class="legend-dot activation"></div> Activation</div>
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-2" style="margin-top: 32px;">
+      <img src="journey-orchestration.png" alt="Journey Orchestration — Risk-Tiered Outreach with Human-in-the-Loop" style="width: 100%; border-radius: var(--radius-2xl); border: 1px solid var(--neutral-2); box-shadow: var(--shadow-lg);">
+    </div>
+  </div>
+</section>
+
+<!-- ============================== -->
+<!-- SECTION 6: REAL-TIME TRIGGERS  -->
+<!-- (Demo 1 continued)             -->
+<!-- ============================== -->
+<section id="realtime">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Real-Time</div>
+      <div class="section-title"><strong>Instant Action</strong> When the Moment Happens</div>
+    </div>
+
+    <div class="rt-flow reveal reveal-delay-1">
+      <div class="rt-node">
+        <div class="rt-node-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary-5)" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div class="rt-node-title">Event Arrives</div>
+        <div class="rt-node-desc">Call, click, transaction, or signal enters the platform</div>
+      </div>
+      <div class="rt-arrow">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+      <div class="rt-node">
+        <div class="rt-node-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--brand-purple)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="rt-node-title">RT Engine Evaluates</div>
+        <div class="rt-node-desc">600+ attributes checked in real time</div>
+      </div>
+      <div class="rt-arrow">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+      <div class="rt-node">
+        <div class="rt-node-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--success-6)" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+        </div>
+        <div class="rt-node-title">Key Event Matches</div>
+        <div class="rt-node-desc">Trigger condition met &mdash; action initiated</div>
+      </div>
+      <div class="rt-arrow">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+      <div class="rt-node">
+        <div class="rt-node-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--peach)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="rt-node-title">Webhook Fires</div>
+        <div class="rt-node-desc">Branch manager terminal receives the alert</div>
+      </div>
+    </div>
+
+    <div class="grid-3 reveal reveal-delay-2" style="margin-top: 32px;">
+      <div class="metric-tile">
+        <div class="metric-value">&lt;100ms</div>
+        <div class="metric-label">Event-to-decision latency</div>
+      </div>
+      <div class="metric-tile accent-purple">
+        <div class="metric-value">600+</div>
+        <div class="metric-label">Attributes evaluated per event</div>
+      </div>
+      <div class="metric-tile accent-green">
+        <div class="metric-value">24/7</div>
+        <div class="metric-label">Always-on evaluation</div>
+      </div>
+    </div>
+
+    <div class="note-box reveal reveal-delay-3">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      Complementary to batch journeys &mdash; RT handles the urgent moment, batch handles the nurture.
+    </div>
+  </div>
+</section>
+
+<!-- ============================== -->
+<!-- SECTION 7: LIVE DEMO (ConvAI)  -->
+<!-- (Demo 2)                       -->
+<!-- ============================== -->
+<section id="demo" style="background: var(--surface-bg);">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Live Demo</div>
+      <div class="section-title"><strong>Conversational AI</strong> &mdash; One Prompt to Personalized Action</div>
+    </div>
+
+    <div class="reveal reveal-delay-1" style="margin-top: 32px;">
+      <div class="transcript-card">
+        <div class="transcript-header">
+          <div class="transcript-header-left">
+            <div class="transcript-header-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--peach)" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div class="transcript-header-info">
+              <div class="transcript-header-name">Monica Chen &mdash; Inbound Call</div>
+              <div class="transcript-header-meta">Account #****-7842 &middot; Premium Loyal &middot; 12-year customer</div>
+            </div>
+          </div>
+          <div class="transcript-header-right">
+            <div class="transcript-status"><div class="transcript-status-dot"></div> Live</div>
+            <div class="transcript-duration">03:24</div>
+          </div>
+        </div>
+        <div class="transcript-body">
+          <div class="transcript-line customer">
+            <div class="transcript-speaker">Monica (Customer)</div>
+            Hi, I'm calling about my mortgage. I saw rates dropped and I'm paying 6.2%. I've been a customer for 12 years and honestly I'm frustrated &mdash; I feel like new customers get better deals.
+          </div>
+          <div class="transcript-line agent">
+            <div class="transcript-speaker">Bank Agent</div>
+            I completely understand, Monica. Let me pull up your account. I can see your history with us and I want to make sure we find the right option for you today.
+          </div>
+          <div class="transcript-line customer">
+            <div class="transcript-speaker">Monica (Customer)</div>
+            I've already started looking at other banks. I need to know &mdash; can you do something about this rate or should I move my mortgage?
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-2" style="margin-top: 24px;">
+      <div style="display: flex; align-items: flex-start; gap: 0;">
+        <div style="flex:1;">
+          <div class="stage-card">
+            <div class="stage-num">1</div>
+            <div class="stage-title">Understand</div>
+            <div class="stage-desc">Identity: Monica Chen, 12yr customer. Intent: Mortgage refinance. Urgency: High (churn risk)</div>
+          </div>
+        </div>
+        <div class="stage-connector">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div class="stage-card">
+            <div class="stage-num" style="background: var(--brand-purple);">2</div>
+            <div class="stage-title">Ground</div>
+            <div class="stage-desc">Credit: 780. LTV: 62%. ML score: High retention value. Segment: Premium Loyal</div>
+          </div>
+        </div>
+        <div class="stage-connector">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div class="stage-card">
+            <div class="stage-num" style="background: var(--deep-blue);">3</div>
+            <div class="stage-title">Decide</div>
+            <div class="stage-desc">ML model: Savings Account. ConvAI override: Mortgage Refinance at 4.8% + fee waiver</div>
+          </div>
+        </div>
+        <div class="stage-connector">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div class="stage-card">
+            <div class="stage-num" style="background: var(--success-6);">4</div>
+            <div class="stage-title">Activate</div>
+            <div class="stage-desc">Frontline terminal: real-time offer. Email follow-up. Branch manager notification</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-callout reveal reveal-delay-3">
+      <div class="insight-callout-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary-5)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="insight-callout-content">
+        <div class="insight-callout-title">The AI improved the decision</div>
+        <div class="insight-callout-desc">
+          The ML model recommended Savings Account. The conversation revealed Mortgage Refinance intent. The AI combined both signals to deliver the right offer at the right moment &mdash; preventing churn and deepening the relationship.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== -->
 <!-- SECTION 10: GOVERNANCE         -->
 <!-- ============================== -->
 <section id="governance">
@@ -2165,6 +2217,13 @@ section {
       <div class="data-flow-box conv">
         <div class="data-flow-box-title">Conversation</div>
         <div class="data-flow-box-desc">Raw call transcript enters the system</div>
+      </div>
+      <div class="data-flow-arrow">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+      <div class="data-flow-box platform">
+        <div class="data-flow-box-title">Skills</div>
+        <div class="data-flow-box-desc">Strips PII, extracts intent &amp; parameters &mdash; anonymizes before LLM</div>
       </div>
       <div class="data-flow-arrow">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -2359,11 +2418,10 @@ const sectionNames = {
   scale: 'At Scale',
   landscape: 'Product Landscape',
   activation: 'Activation Channels',
+  integrationhub: 'Integration Hub',
   journey: 'Journey Orchestration',
   realtime: 'Real-Time Triggers',
   demo: 'Live Demo',
-  pipeline: 'How It Works',
-  integrationhub: 'Integration Hub',
   governance: 'Governance',
   dataarch: 'Data Architecture',
   commercial: 'Commercial Model',
